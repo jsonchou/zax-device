@@ -1,13 +1,16 @@
 /**
- * device with server & client side
+ * device module with server & client side
  */
 
 let _ua = '';
 if (typeof document !== 'undefined') {
     _ua = navigator.userAgent.toLowerCase()
+} else {
+    _ua = this.request.header['user-agent'].toLowerCase()
 }
 
 export default {
+    _ua,
     client: typeof document !== undefined,
     server: typeof document === undefined,
     linux: true,
