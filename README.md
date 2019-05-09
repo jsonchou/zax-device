@@ -21,7 +21,7 @@ npm run build
 ``` javascript 
 let zaxDevice = require('zax-device')
 ...
-zaxDevice = zaxDevice.bind(ctx)// in some server function with ctx
+zaxDevice = zaxDevice.call(ctx)// in some server function with ctx
 ...
 ```
 
@@ -30,5 +30,5 @@ zaxDevice = zaxDevice.bind(ctx)// in some server function with ctx
 
 ``` javascript
 import zaxDevice from 'zax-device'
-let device = zaxDevice()
+zaxDevice = zaxDevice()
 ```

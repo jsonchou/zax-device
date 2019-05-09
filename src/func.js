@@ -1,11 +1,11 @@
 export default function(_ua) {
-    return {
+
+    let obj = {
         _ua,
         client: typeof document !== undefined,
         server: typeof document === undefined,
         linux: true,
         windows: true,
-        miniprograme, //是否是小程序
         weixin: _ua.match(/micromessenger/i) == 'micromessenger',
         app: _ua.match(/zhonganwebview/i) == 'zhonganwebview',
         ipad: _ua.match(/ipad/i) == 'ipad',
@@ -17,8 +17,22 @@ export default function(_ua) {
         webos: _ua.match(/webos/i) == "webos",
         blackberry: _ua.match(/blackberry/i) == "blackberry",
         uc: _ua.match(/ucweb/i) == 'ucweb' || _ua.match(/ucbrowser/i) == 'ucbrowser',
-        pc: function() {
-            return !(this.ipad || this.iphone || this.android || this.wc || this.wm || this.wp || this.webos || this.blackberry || this.uc || this.weixin); //检测PC
+
+    }
+
+    return {
+        ...obj,
+        pc: !(obj.ipad || obj.iphone || obj.android || obj.wc || obj.wm || obj.wp || obj.webos || obj.blackberry || obj.uc || obj.weixin),
+        isMiniprogram(cb) {
+            if (typeof document !== undefined && obj.weixin) {
+                if (!wx) {
+                    console.log('请确保引入jweixin.js')
+                    return
+                }
+                wx.miniProgram && wx.miniProgram.getEnv((res) => {
+                    cb(!!res.miniprogram)
+                })
+            }
         }
     }
 }

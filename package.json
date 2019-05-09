@@ -1,6 +1,6 @@
 {
   "name": "zax-device",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./libs/umd.js",
   "directories": {
@@ -34,5 +34,8 @@
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-uglify": "^6.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "babel-plugin-external-helpers": "^6.22.0"
+  }
 }

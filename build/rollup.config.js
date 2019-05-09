@@ -42,6 +42,7 @@
              }),
              babel({
                  exclude: 'node_modules/**',
+                 plugins: ['@babel/plugin-proposal-object-rest-spread'],
                  runtimeHelpers: true
              }),
              terser({
