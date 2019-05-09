@@ -16,8 +16,19 @@ npm run build
 
 ## use
 
+### server side
+
 ``` javascript 
-const zaxDevice = require('zax-device')
-or
+let zaxDevice = require('zax-device')
+...
+zaxDevice = zaxDevice.bind(ctx)// in some server function with ctx
+...
+```
+
+
+### client side
+
+``` javascript
 import zaxDevice from 'zax-device'
+let device = zaxDevice()
 ```
