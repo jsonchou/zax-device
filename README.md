@@ -1,5 +1,4 @@
 # ZAX Device Util
-## there have 6 modes of amd, cjs, es, iife, system, umd. 
 ## support SSR Miniprogram Browser side
 
 ## install
