@@ -17,10 +17,10 @@ npm run build
 
 ### server side
 
-``` javascript 
-let zaxDevice = require('zax-device')
+``` javascript
+let { isClientSide, isServerSide, isIOS, isAndroid, isWechat, isWechatMiniprogram, isAlipayMiniprogram } = require('zax-device')
 ...
-zaxDevice = zaxDevice.call(ctx)// in some server function with ctx
+let foo = isAndroid(ctx.reqeust.header['user-agent'])// in koa middleware way
 ...
 ```
 
@@ -28,6 +28,5 @@ zaxDevice = zaxDevice.call(ctx)// in some server function with ctx
 ### client side
 
 ``` javascript
-import zaxDevice from 'zax-device'
-zaxDevice = zaxDevice()
+import { isClientSide, isServerSide, isIOS, isAndroid, isWechat, isWechatMiniprogram, isAlipayMiniprogram } from 'zax-device'
 ```
