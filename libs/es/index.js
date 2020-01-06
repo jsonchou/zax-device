@@ -26,11 +26,29 @@ function extendLiteral(obj, key, val) {
  * }
  * ```
  *
- * @returns { Boolean } result
+ * @returns { Record<string, string> } result
  */
 export function setAppMapping(key, regexFlag) {
     AppList[key] = regexFlag;
     return extendLiteral(AppList, key, regexFlag);
+}
+/**
+ * getAppMapping
+ *
+ * ```js
+ * getAppMapping();
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Record<string, string> } result
+ */
+export function getAppMapping() {
+    return AppList;
 }
 /**
  * isClientSide

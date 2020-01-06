@@ -1,6 +1,6 @@
 jest.setTimeout(30000)
 
-import zaxDevice, { setAppMapping, isAlipay, isAlipayMiniprogram, isApp, isAndroid, isClientSide, isIOS, isServerSide, isWechat, isWechatMiniprogram, AppList } from '../src/index'
+import zaxDevice, {getAppMapping, setAppMapping, isAlipay, isAlipayMiniprogram, isApp, isAndroid, isClientSide, isIOS, isServerSide, isWechat, isWechatMiniprogram, AppList } from '../src/index'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -98,6 +98,19 @@ describe('zaxDevice', () => {
 			dax: 'jsonchou'
 		})
 	})
+
+	it(`get app mapping`, () => {
+		let res = getAppMapping()
+		expect(res).toEqual({
+			alipay: 'AliApp',
+			wechat: 'MicroMessenger',
+			dax: 'jsonchou'
+		})
+
+		expect(res).toEqual(AppList)
+
+	})
+
 
 	it(`simulation server side `, () => {
 		Object.defineProperty(window, 'document', { value: undefined, configurable: true, writable: true })

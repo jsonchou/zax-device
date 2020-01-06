@@ -26,9 +26,25 @@ export declare type AppListDescriptor = (keyof typeof AppList) | (keyof {
  * }
  * ```
  *
- * @returns { Boolean } result
+ * @returns { Record<string, string> } result
  */
 export declare function setAppMapping(key: string, regexFlag: string): Record<string, string>;
+/**
+ * getAppMapping
+ *
+ * ```js
+ * getAppMapping();
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Record<string, string> } result
+ */
+export declare function getAppMapping(): Record<string, string>;
 /**
  * isClientSide
  *

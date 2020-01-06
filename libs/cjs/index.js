@@ -40,13 +40,32 @@ function extendLiteral(obj, key, val) {
  * }
  * ```
  *
- * @returns { Boolean } result
+ * @returns { Record<string, string> } result
  */
 function setAppMapping(key, regexFlag) {
     exports.AppList[key] = regexFlag;
     return extendLiteral(exports.AppList, key, regexFlag);
 }
 exports.setAppMapping = setAppMapping;
+/**
+ * getAppMapping
+ *
+ * ```js
+ * getAppMapping();
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Record<string, string> } result
+ */
+function getAppMapping() {
+    return exports.AppList;
+}
+exports.getAppMapping = getAppMapping;
 /**
  * isClientSide
  *
