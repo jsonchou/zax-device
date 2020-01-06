@@ -13,7 +13,7 @@ npm i zax-device -S
 npm run build
 ```
 
-## use
+## usage
 
 ### server side
 

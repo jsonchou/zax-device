@@ -1,8 +1,6 @@
 jest.setTimeout(30000)
 
-import zaxDevice, { isAlipay, isAlipayMiniprogram, isApp, isAndroid, isClientSide, isIOS, isServerSide, isWechat, isWechatMiniprogram, AppList } from '../src/index'
-
-AppList['ifuli'] = 'ifuli'
+import zaxDevice, { setAppMapping, isAlipay, isAlipayMiniprogram, isApp, isAndroid, isClientSide, isIOS, isServerSide, isWechat, isWechatMiniprogram, AppList } from '../src/index'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -79,11 +77,26 @@ describe('zaxDevice', () => {
 
 	it(`should be correct isApp function result `, () => {
 		expect(zaxDevice.isApp('za')).toEqual(false)
-		const myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
+		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
 		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(zaxDevice.isApp('za', myua)).toEqual(true)
-		expect(zaxDevice.isApp('za')).toEqual(true)
-		expect(Object.keys(AppList).length).toEqual(4)
+		expect(zaxDevice.isApp('za', myua)).toEqual(false)
+		expect(zaxDevice.isApp('za')).toEqual(false)
+		expect(Object.keys(AppList).length).toEqual(2)
+	})
+
+	it(`set app mapping`, () => {
+		let res = setAppMapping('dax', 'jsonchou')
+		console.log(res, window.navigator.userAgent || 'empty user agent')
+		expect(zaxDevice.isApp('dax')).toEqual(false)
+		const myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36jsonchou`
+		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
+		expect(zaxDevice.isApp('dax', myua)).toEqual(true)
+		expect(zaxDevice.isApp('dax')).toEqual(true)
+		expect(AppList).toEqual({
+			alipay: 'AliApp',
+			wechat: 'MicroMessenger',
+			dax: 'jsonchou'
+		})
 	})
 
 	it(`simulation server side `, () => {
@@ -101,7 +114,6 @@ describe('zaxDevice', () => {
 		expect(zaxDevice.isAlipay()).toEqual(false)
 		expect(zaxDevice.isWechatMiniprogram()).toEqual(false)
 		expect(zaxDevice.isAlipayMiniprogram()).toEqual(false)
-
 	})
 })
 

@@ -11,6 +11,7 @@
 
 
 * [zaxDevice](#module_zaxDevice)
+    * [~setAppMapping()](#module_zaxDevice..setAppMapping) ⇒ <code>Boolean</code>
     * [~isClientSide()](#module_zaxDevice..isClientSide) ⇒ <code>Boolean</code>
     * [~isServerSide()](#module_zaxDevice..isServerSide) ⇒ <code>Boolean</code>
     * [~isIOS()](#module_zaxDevice..isIOS) ⇒ <code>Boolean</code>
@@ -21,6 +22,21 @@
     * [~isAlipayMiniprogram()](#module_zaxDevice..isAlipayMiniprogram) ⇒ <code>Boolean</code>
     * [~isApp()](#module_zaxDevice..isApp) ⇒ <code>Boolean</code>
 
+<a name="module_zaxDevice..setAppMapping"></a>
+
+### zaxDevice~setAppMapping() ⇒ <code>Boolean</code>
+<p>setAppMapping</p>
+<pre class="prettyprint source lang-js"><code>setAppMapping('tt','toutiao');
+//=>
+{
+ alipay: 'AliApp',
+ wechat: 'MicroMessenger',
+ tt: 'toutiao',
+}
+</code></pre>
+
+**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Returns**: <code>Boolean</code> - <p>result</p>  
 <a name="module_zaxDevice..isClientSide"></a>
 
 ### zaxDevice~isClientSide() ⇒ <code>Boolean</code>

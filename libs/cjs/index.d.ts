@@ -7,11 +7,28 @@
  * @see https://demo.mobiledetect.net/
  */
 export declare const AppList: {
-    za: string;
     alipay: string;
     wechat: string;
 };
-export declare type AppListDescriptor = keyof typeof AppList | 'test';
+export declare type AppListDescriptor = (keyof typeof AppList) | (keyof {
+    [key: string]: string;
+});
+/**
+ * setAppMapping
+ *
+ * ```js
+ * setAppMapping('tt','toutiao');
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Boolean } result
+ */
+export declare function setAppMapping(key: string, regexFlag: string): Record<string, string>;
 /**
  * isClientSide
  *
@@ -126,6 +143,7 @@ export declare function isAlipayMiniprogram(ua?: string): boolean;
  */
 export declare function isApp(appFlag: AppListDescriptor, ua?: string): boolean;
 declare const _default: {
+    setAppMapping: typeof setAppMapping;
     isClientSide: typeof isClientSide;
     isServerSide: typeof isServerSide;
     isApp: typeof isApp;

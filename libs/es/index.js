@@ -7,10 +7,31 @@
  * @see https://demo.mobiledetect.net/
  */
 export const AppList = {
-    za: 'ZhongAnWebView',
     alipay: 'AliApp',
     wechat: 'MicroMessenger'
 };
+function extendLiteral(obj, key, val) {
+    return Object.assign(Object.assign({}, obj), { [key]: val });
+}
+/**
+ * setAppMapping
+ *
+ * ```js
+ * setAppMapping('tt','toutiao');
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Boolean } result
+ */
+export function setAppMapping(key, regexFlag) {
+    AppList[key] = regexFlag;
+    return extendLiteral(AppList, key, regexFlag);
+}
 /**
  * isClientSide
  *
@@ -174,6 +195,7 @@ export function isApp(appFlag, ua) {
     return false;
 }
 export default {
+    setAppMapping,
     isClientSide,
     isServerSide,
     isApp,

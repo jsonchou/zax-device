@@ -10,12 +10,38 @@
 type Nothing = {} // jsdoc2md bugs, do not remove this line
 
 export const AppList = {
-	za: 'ZhongAnWebView',
 	alipay: 'AliApp',
 	wechat: 'MicroMessenger'
 }
 
-export type AppListDescriptor = keyof typeof AppList | 'test'
+export type AppListDescriptor = (keyof typeof AppList) | (keyof { [key: string]: string })
+
+function extendLiteral<T>(obj: T, key: string, val: string): T & { [key: string]: string } {
+	return {
+		...obj,
+		[key]: val
+	}
+}
+
+/**
+ * setAppMapping
+ *
+ * ```js
+ * setAppMapping('tt','toutiao');
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Boolean } result
+ */
+export function setAppMapping(key: string, regexFlag: string): Record<string, string> {
+	AppList[key] = regexFlag
+	return extendLiteral(AppList, key, regexFlag)
+}
 
 /**
  * isClientSide
@@ -176,7 +202,6 @@ export function isAlipayMiniprogram(ua?: string): boolean {
  * @returns { Boolean } result
  */
 export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
-
 	if (typeof document !== 'undefined') {
 		ua = navigator.userAgent
 	}
@@ -192,6 +217,7 @@ export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
 }
 
 export default {
+	setAppMapping,
 	isClientSide,
 	isServerSide,
 	isApp,

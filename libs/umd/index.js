@@ -6,6 +6,17 @@
  * @see https://github.com/faisalman/ua-parser-js
  * @see https://demo.mobiledetect.net/
  */
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         var v = factory(require, exports);
@@ -18,10 +29,33 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.AppList = {
-        za: 'ZhongAnWebView',
         alipay: 'AliApp',
         wechat: 'MicroMessenger'
     };
+    function extendLiteral(obj, key, val) {
+        var _a;
+        return __assign(__assign({}, obj), (_a = {}, _a[key] = val, _a));
+    }
+    /**
+     * setAppMapping
+     *
+     * ```js
+     * setAppMapping('tt','toutiao');
+     * //=>
+     * {
+     *  alipay: 'AliApp',
+     *  wechat: 'MicroMessenger',
+     *  tt: 'toutiao',
+     * }
+     * ```
+     *
+     * @returns { Boolean } result
+     */
+    function setAppMapping(key, regexFlag) {
+        exports.AppList[key] = regexFlag;
+        return extendLiteral(exports.AppList, key, regexFlag);
+    }
+    exports.setAppMapping = setAppMapping;
     /**
      * isClientSide
      *
@@ -194,6 +228,7 @@
     }
     exports.isApp = isApp;
     exports.default = {
+        setAppMapping: setAppMapping,
         isClientSide: isClientSide,
         isServerSide: isServerSide,
         isApp: isApp,
