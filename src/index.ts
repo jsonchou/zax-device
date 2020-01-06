@@ -36,12 +36,33 @@ function extendLiteral<T>(obj: T, key: string, val: string): T & { [key: string]
  * }
  * ```
  *
- * @returns { Boolean } result
+ * @returns { Record<string, string> } result
  */
 export function setAppMapping(key: string, regexFlag: string): Record<string, string> {
 	AppList[key] = regexFlag
 	return extendLiteral(AppList, key, regexFlag)
 }
+
+
+/**
+ * getAppMapping
+ *
+ * ```js
+ * getAppMapping();
+ * //=>
+ * {
+ *  alipay: 'AliApp',
+ *  wechat: 'MicroMessenger',
+ *  tt: 'toutiao',
+ * }
+ * ```
+ *
+ * @returns { Record<string, string> } result
+ */
+export function getAppMapping(): Record<string, string> {
+	return AppList
+}
+
 
 /**
  * isClientSide
