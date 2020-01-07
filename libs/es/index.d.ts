@@ -160,6 +160,7 @@ export declare function isAlipayMiniprogram(ua?: string): boolean;
 export declare function isApp(appFlag: AppListDescriptor, ua?: string): boolean;
 declare const _default: {
     setAppMapping: typeof setAppMapping;
+    getAppMapping: typeof getAppMapping;
     isClientSide: typeof isClientSide;
     isServerSide: typeof isServerSide;
     isApp: typeof isApp;

@@ -236,7 +236,7 @@ var __assign = (this && this.__assign) || function () {
             ua = navigator.userAgent;
         }
         if (ua) {
-            var rex = exports.AppList[appFlag];
+            var rex = exports.AppList && exports.AppList[appFlag];
             /* istanbul ignore next */
             if (!rex) {
                 return false;
@@ -248,6 +248,7 @@ var __assign = (this && this.__assign) || function () {
     exports.isApp = isApp;
     exports.default = {
         setAppMapping: setAppMapping,
+        getAppMapping: getAppMapping,
         isClientSide: isClientSide,
         isServerSide: isServerSide,
         isApp: isApp,

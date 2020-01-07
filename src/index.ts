@@ -227,7 +227,7 @@ export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
 		ua = navigator.userAgent
 	}
 	if (ua) {
-		let rex = AppList[appFlag]
+		let rex = AppList && AppList[appFlag]
 		/* istanbul ignore next */
 		if (!rex) {
 			return false
@@ -239,6 +239,7 @@ export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
 
 export default {
 	setAppMapping,
+	getAppMapping,
 	isClientSide,
 	isServerSide,
 	isApp,

@@ -203,7 +203,7 @@ export function isApp(appFlag, ua) {
         ua = navigator.userAgent;
     }
     if (ua) {
-        let rex = AppList[appFlag];
+        let rex = AppList && AppList[appFlag];
         /* istanbul ignore next */
         if (!rex) {
             return false;
@@ -214,6 +214,7 @@ export function isApp(appFlag, ua) {
 }
 export default {
     setAppMapping,
+    getAppMapping,
     isClientSide,
     isServerSide,
     isApp,
