@@ -9,18 +9,27 @@
 
 type Nothing = {} // jsdoc2md bugs, do not remove this line
 
-export const AppList = {
+// 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2'
+// 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)'
+
+export const webviewMapping = {
 	alipay: 'AliApp',
-	wechat: 'MicroMessenger'
+	wechat: 'MicroMessenger',
+	toutiao: 'NewsArticle',
+	douyin: 'Aweme'
 }
 
-export type AppListDescriptor = (keyof typeof AppList) | (keyof { [key: string]: string })
+export type AppListDescriptor = keyof typeof webviewMapping | keyof Record<string, string>
 
-function extendLiteral<T>(obj: T, key: string, val: string): T & { [key: string]: string } {
+function extendLiteral<T>(obj: T, key: string, val: string): T & Record<string, string> {
 	return {
 		...obj,
 		[key]: val
 	}
+}
+
+function isUndef(tp: any): boolean {
+	return tp === 'undefined'
 }
 
 /**
@@ -32,17 +41,17 @@ function extendLiteral<T>(obj: T, key: string, val: string): T & { [key: string]
  * {
  *  alipay: 'AliApp',
  *  wechat: 'MicroMessenger',
- *  tt: 'toutiao',
+ *  tt: 'ToutiaoMicroApp',
  * }
  * ```
- *
+ * @params key { String } short cut of user agent
+ * @params regexFlag { String } core part of user agent
  * @returns { Record<string, string> } result
  */
 export function setAppMapping(key: string, regexFlag: string): Record<string, string> {
-	AppList[key] = regexFlag
-	return extendLiteral(AppList, key, regexFlag)
+	webviewMapping[key] = regexFlag
+	return extendLiteral(webviewMapping, key, regexFlag)
 }
-
 
 /**
  * getAppMapping
@@ -53,16 +62,15 @@ export function setAppMapping(key: string, regexFlag: string): Record<string, st
  * {
  *  alipay: 'AliApp',
  *  wechat: 'MicroMessenger',
- *  tt: 'toutiao',
+ *  tt: 'ToutiaoMicro',
  * }
  * ```
  *
  * @returns { Record<string, string> } result
  */
 export function getAppMapping(): Record<string, string> {
-	return AppList
+	return webviewMapping
 }
-
 
 /**
  * isClientSide
@@ -76,7 +84,7 @@ export function getAppMapping(): Record<string, string> {
  */
 
 export function isClientSide(): boolean {
-	return typeof document !== 'undefined'
+	return !isUndef(typeof window) && !!window['onload']
 }
 
 /**
@@ -90,11 +98,13 @@ export function isClientSide(): boolean {
  * @returns { Boolean } result
  */
 export function isServerSide(): boolean {
-	return typeof document === 'undefined'
+	return !isUndef(typeof process) && !!(process.versions && process.versions.node)
 }
 
 /**
  * isIOS
+ *
+ * not support miniprogram
  *
  * ```js
  * isIOS('Mozilla/5.0 (iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1');
@@ -105,16 +115,17 @@ export function isServerSide(): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isIOS(ua?: string): boolean {
-	if (typeof document !== 'undefined') {
+export function isIOS(ua: string = ''): boolean {
+	if (isClientSide()) {
 		ua = navigator.userAgent
 	}
-
-	return ua ? /iPad|iPhone|iPod/.test(ua) : false
+	return /iPad|iPhone|iPod/i.test(ua)
 }
 
 /**
  * isAndroid
+ *
+ * not support miniprogram
  *
  * ```js
  * isAndroid('Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.61 Mobile Safari/537.36');
@@ -125,11 +136,11 @@ export function isIOS(ua?: string): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isAndroid(ua?: string): boolean {
-	if (typeof document !== 'undefined') {
+export function isAndroid(ua: string = ''): boolean {
+	if (isClientSide()) {
 		ua = navigator.userAgent
 	}
-	return ua ? /android/i.test(ua) : false
+	return /android/i.test(ua)
 }
 
 /**
@@ -144,31 +155,8 @@ export function isAndroid(ua?: string): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isWechat(ua?: string): boolean {
-	return isApp('wechat')
-}
-
-/**
- * isWechatMiniprogram
- *
- * ```js
- * isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
- * //=> true
- * isWechatMiniprogram();
- * //=> false
- * ```
- * @params ua { String } user agent
- * @returns { Boolean } result
- */
-export function isWechatMiniprogram(ua?: string): boolean {
-	if (typeof document !== 'undefined') {
-		ua = navigator.userAgent
-		/* istanbul ignore next */
-		if (!window.wx) {
-			console.log('please load wechat jssdk https://res.wx.qq.com/open/js/jweixin-1.6.0.js first')
-		}
-	}
-	return ua ? isWechat(ua) && /miniProgram/i.test(ua) : false
+export function isWechat(ua: string = ''): boolean {
+	return isApp('wechat', ua)
 }
 
 /**
@@ -183,8 +171,63 @@ export function isWechatMiniprogram(ua?: string): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isAlipay(ua?: string): boolean {
-	return isApp('alipay')
+export function isAlipay(ua: string = ''): boolean {
+	return isApp('alipay', ua)
+}
+
+/**
+ * isToutiao
+ *
+ * ```js
+ * isToutiao('Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2');
+ * //=> true
+ * isToutiao();
+ * //=> false
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isToutiao(ua: string = ''): boolean {
+	return isApp('toutiao', ua)
+}
+
+/**
+ * isDouyin
+ *
+ * ```js
+ * isDouyin('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
+ * //=> true
+ * isDouyin();
+ * //=> false
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isDouyin(ua: string = ''): boolean {
+	return isApp('douyin', ua)
+}
+
+/**
+ * isWechatMiniprogram
+ *
+ * ```js
+ * isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
+ * //=> true
+ * isWechatMiniprogram();
+ * //=> false
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isWechatMiniprogram(ua: string = ''): boolean {
+	if (isClientSide()) {
+		ua = navigator.userAgent
+	}
+	if (ua) {
+		return /MicroMessenger/i.test(ua)
+	}
+	/* istanbul ignore next */
+	return !isUndef(typeof wx) && wx !== null && (!isUndef(wx.login) || !isUndef(wx.miniProgram))
 }
 
 /**
@@ -199,15 +242,61 @@ export function isAlipay(ua?: string): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isAlipayMiniprogram(ua?: string): boolean {
-	if (typeof document !== 'undefined') {
+export function isAlipayMiniprogram(ua: string = ''): boolean {
+	if (isClientSide()) {
 		ua = navigator.userAgent
-		/* istanbul ignore next */
-		if (!window.AlipayJSBridge) {
-			console.log('please load alipay jssdk https://appx/web-view.min.js first')
-		}
 	}
-	return ua ? isAlipay() && /AlipayClient/i.test(ua) : false
+	if (ua) {
+		return /AlipayClient/i.test(ua)
+	}
+	/* istanbul ignore next */
+	return !isUndef(typeof my) && my !== null && !isUndef(my.alert)
+}
+
+/**
+ * isBaiduMiniprogram
+ *
+ * ```js
+ * isBaiduMiniprogram('');
+ * //=> true
+ * isBaiduMiniprogram();
+ * //=> false
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isBaiduMiniprogram(ua: string = ''): boolean {
+	if (isClientSide()) {
+		ua = navigator.userAgent
+	}
+	if (ua) {
+		return /swan/i.test(ua)
+	}
+	/* istanbul ignore next */
+	return !isUndef(typeof swan) && swan !== null
+}
+
+/**
+ * isBytedanceMiniprogram
+ *
+ * ```js
+ * isBytedanceMiniprogram('');
+ * //=> true
+ * isBytedanceMiniprogram();
+ * //=> false
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isBytedanceMiniprogram(ua: string = ''): boolean {
+	if (isClientSide()) {
+		ua = navigator.userAgent
+	}
+	if (ua) {
+		return /ToutiaoMicroApp/i.test(ua)
+	}
+	/* istanbul ignore next */
+	return !isUndef(typeof tt) && tt !== null
 }
 
 /**
@@ -222,12 +311,12 @@ export function isAlipayMiniprogram(ua?: string): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
-	if (typeof document !== 'undefined') {
+export function isApp(appFlag: AppListDescriptor, ua: string = ''): boolean {
+	if (isClientSide()) {
 		ua = navigator.userAgent
 	}
 	if (ua) {
-		let rex = AppList && AppList[appFlag]
+		let rex = webviewMapping && webviewMapping[appFlag]
 		/* istanbul ignore next */
 		if (!rex) {
 			return false
@@ -237,16 +326,37 @@ export function isApp(appFlag: AppListDescriptor, ua?: string): boolean {
 	return false
 }
 
+/**
+ * isMiniProgram
+ *
+ * ```js
+ * isMiniProgram('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+ * //=> true
+ * isMiniProgram('alipay');
+ * //=> true
+ * ```
+ * @params ua { String } user agent
+ * @returns { Boolean } result
+ */
+export function isMiniProgram(ua: string = ''): boolean {
+	return isWechatMiniprogram(ua) || isAlipayMiniprogram(ua) || isBytedanceMiniprogram(ua) || isBaiduMiniprogram(ua)
+}
+
 export default {
 	setAppMapping,
 	getAppMapping,
 	isClientSide,
 	isServerSide,
 	isApp,
+	isMiniProgram,
 	isIOS,
 	isAndroid,
 	isWechat,
 	isAlipay,
+	isToutiao,
+	isDouyin,
 	isWechatMiniprogram,
-	isAlipayMiniprogram
+	isAlipayMiniprogram,
+	isBytedanceMiniprogram,
+	isBaiduMiniprogram
 }

@@ -28,13 +28,20 @@ var __assign = (this && this.__assign) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.AppList = {
+    // 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2'
+    // 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)'
+    exports.webviewMapping = {
         alipay: 'AliApp',
-        wechat: 'MicroMessenger'
+        wechat: 'MicroMessenger',
+        toutiao: 'NewsArticle',
+        douyin: 'Aweme'
     };
     function extendLiteral(obj, key, val) {
         var _a;
         return __assign(__assign({}, obj), (_a = {}, _a[key] = val, _a));
+    }
+    function isUndef(tp) {
+        return tp === 'undefined';
     }
     /**
      * setAppMapping
@@ -45,15 +52,16 @@ var __assign = (this && this.__assign) || function () {
      * {
      *  alipay: 'AliApp',
      *  wechat: 'MicroMessenger',
-     *  tt: 'toutiao',
+     *  tt: 'ToutiaoMicroApp',
      * }
      * ```
-     *
+     * @params key { String } short cut of user agent
+     * @params regexFlag { String } core part of user agent
      * @returns { Record<string, string> } result
      */
     function setAppMapping(key, regexFlag) {
-        exports.AppList[key] = regexFlag;
-        return extendLiteral(exports.AppList, key, regexFlag);
+        exports.webviewMapping[key] = regexFlag;
+        return extendLiteral(exports.webviewMapping, key, regexFlag);
     }
     exports.setAppMapping = setAppMapping;
     /**
@@ -65,14 +73,14 @@ var __assign = (this && this.__assign) || function () {
      * {
      *  alipay: 'AliApp',
      *  wechat: 'MicroMessenger',
-     *  tt: 'toutiao',
+     *  tt: 'ToutiaoMicro',
      * }
      * ```
      *
      * @returns { Record<string, string> } result
      */
     function getAppMapping() {
-        return exports.AppList;
+        return exports.webviewMapping;
     }
     exports.getAppMapping = getAppMapping;
     /**
@@ -86,7 +94,7 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isClientSide() {
-        return typeof document !== 'undefined';
+        return !isUndef(typeof window) && !!window['onload'];
     }
     exports.isClientSide = isClientSide;
     /**
@@ -100,11 +108,13 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isServerSide() {
-        return typeof document === 'undefined';
+        return !isUndef(typeof process) && !!(process.versions && process.versions.node);
     }
     exports.isServerSide = isServerSide;
     /**
      * isIOS
+     *
+     * not support miniprogram
      *
      * ```js
      * isIOS('Mozilla/5.0 (iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1');
@@ -116,14 +126,17 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isIOS(ua) {
-        if (typeof document !== 'undefined') {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
             ua = navigator.userAgent;
         }
-        return ua ? /iPad|iPhone|iPod/.test(ua) : false;
+        return /iPad|iPhone|iPod/i.test(ua);
     }
     exports.isIOS = isIOS;
     /**
      * isAndroid
+     *
+     * not support miniprogram
      *
      * ```js
      * isAndroid('Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.61 Mobile Safari/537.36');
@@ -135,10 +148,11 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isAndroid(ua) {
-        if (typeof document !== 'undefined') {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
             ua = navigator.userAgent;
         }
-        return ua ? /android/i.test(ua) : false;
+        return /android/i.test(ua);
     }
     exports.isAndroid = isAndroid;
     /**
@@ -154,32 +168,10 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isWechat(ua) {
-        return isApp('wechat');
+        if (ua === void 0) { ua = ''; }
+        return isApp('wechat', ua);
     }
     exports.isWechat = isWechat;
-    /**
-     * isWechatMiniprogram
-     *
-     * ```js
-     * isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
-     * //=> true
-     * isWechatMiniprogram();
-     * //=> false
-     * ```
-     * @params ua { String } user agent
-     * @returns { Boolean } result
-     */
-    function isWechatMiniprogram(ua) {
-        if (typeof document !== 'undefined') {
-            ua = navigator.userAgent;
-            /* istanbul ignore next */
-            if (!window.wx) {
-                console.log('please load wechat jssdk https://res.wx.qq.com/open/js/jweixin-1.6.0.js first');
-            }
-        }
-        return ua ? isWechat(ua) && /miniProgram/i.test(ua) : false;
-    }
-    exports.isWechatMiniprogram = isWechatMiniprogram;
     /**
      * isAlipay
      *
@@ -193,9 +185,68 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isAlipay(ua) {
-        return isApp('alipay');
+        if (ua === void 0) { ua = ''; }
+        return isApp('alipay', ua);
     }
     exports.isAlipay = isAlipay;
+    /**
+     * isToutiao
+     *
+     * ```js
+     * isToutiao('Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2');
+     * //=> true
+     * isToutiao();
+     * //=> false
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isToutiao(ua) {
+        if (ua === void 0) { ua = ''; }
+        return isApp('toutiao', ua);
+    }
+    exports.isToutiao = isToutiao;
+    /**
+     * isDouyin
+     *
+     * ```js
+     * isDouyin('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
+     * //=> true
+     * isDouyin();
+     * //=> false
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isDouyin(ua) {
+        if (ua === void 0) { ua = ''; }
+        return isApp('douyin', ua);
+    }
+    exports.isDouyin = isDouyin;
+    /**
+     * isWechatMiniprogram
+     *
+     * ```js
+     * isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
+     * //=> true
+     * isWechatMiniprogram();
+     * //=> false
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isWechatMiniprogram(ua) {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
+            ua = navigator.userAgent;
+        }
+        if (ua) {
+            return /MicroMessenger/i.test(ua);
+        }
+        /* istanbul ignore next */
+        return !isUndef(typeof wx) && wx !== null && (!isUndef(wx.login) || !isUndef(wx.miniProgram));
+    }
+    exports.isWechatMiniprogram = isWechatMiniprogram;
     /**
      * isAlipayMiniprogram
      *
@@ -209,16 +260,65 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isAlipayMiniprogram(ua) {
-        if (typeof document !== 'undefined') {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
             ua = navigator.userAgent;
-            /* istanbul ignore next */
-            if (!window.AlipayJSBridge) {
-                console.log('please load alipay jssdk https://appx/web-view.min.js first');
-            }
         }
-        return ua ? isAlipay() && /AlipayClient/i.test(ua) : false;
+        if (ua) {
+            return /AlipayClient/i.test(ua);
+        }
+        /* istanbul ignore next */
+        return !isUndef(typeof my) && my !== null && !isUndef(my.alert);
     }
     exports.isAlipayMiniprogram = isAlipayMiniprogram;
+    /**
+     * isBaiduMiniprogram
+     *
+     * ```js
+     * isBaiduMiniprogram('');
+     * //=> true
+     * isBaiduMiniprogram();
+     * //=> false
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isBaiduMiniprogram(ua) {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
+            ua = navigator.userAgent;
+        }
+        if (ua) {
+            return /swan/i.test(ua);
+        }
+        /* istanbul ignore next */
+        return !isUndef(typeof swan) && swan !== null;
+    }
+    exports.isBaiduMiniprogram = isBaiduMiniprogram;
+    /**
+     * isBytedanceMiniprogram
+     *
+     * ```js
+     * isBytedanceMiniprogram('');
+     * //=> true
+     * isBytedanceMiniprogram();
+     * //=> false
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isBytedanceMiniprogram(ua) {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
+            ua = navigator.userAgent;
+        }
+        if (ua) {
+            return /ToutiaoMicroApp/i.test(ua);
+        }
+        /* istanbul ignore next */
+        return !isUndef(typeof tt) && tt !== null;
+    }
+    exports.isBytedanceMiniprogram = isBytedanceMiniprogram;
     /**
      * isApp
      *
@@ -232,11 +332,12 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isApp(appFlag, ua) {
-        if (typeof document !== 'undefined') {
+        if (ua === void 0) { ua = ''; }
+        if (isClientSide()) {
             ua = navigator.userAgent;
         }
         if (ua) {
-            var rex = exports.AppList && exports.AppList[appFlag];
+            var rex = exports.webviewMapping && exports.webviewMapping[appFlag];
             /* istanbul ignore next */
             if (!rex) {
                 return false;
@@ -246,18 +347,40 @@ var __assign = (this && this.__assign) || function () {
         return false;
     }
     exports.isApp = isApp;
+    /**
+     * isMiniProgram
+     *
+     * ```js
+     * isMiniProgram('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+     * //=> true
+     * isMiniProgram('alipay');
+     * //=> true
+     * ```
+     * @params ua { String } user agent
+     * @returns { Boolean } result
+     */
+    function isMiniProgram(ua) {
+        if (ua === void 0) { ua = ''; }
+        return isWechatMiniprogram(ua) || isAlipayMiniprogram(ua) || isBytedanceMiniprogram(ua) || isBaiduMiniprogram(ua);
+    }
+    exports.isMiniProgram = isMiniProgram;
     exports.default = {
         setAppMapping: setAppMapping,
         getAppMapping: getAppMapping,
         isClientSide: isClientSide,
         isServerSide: isServerSide,
         isApp: isApp,
+        isMiniProgram: isMiniProgram,
         isIOS: isIOS,
         isAndroid: isAndroid,
         isWechat: isWechat,
         isAlipay: isAlipay,
+        isToutiao: isToutiao,
+        isDouyin: isDouyin,
         isWechatMiniprogram: isWechatMiniprogram,
-        isAlipayMiniprogram: isAlipayMiniprogram
+        isAlipayMiniprogram: isAlipayMiniprogram,
+        isBytedanceMiniprogram: isBytedanceMiniprogram,
+        isBaiduMiniprogram: isBaiduMiniprogram
     };
 });
 //# sourceMappingURL=index.js.map

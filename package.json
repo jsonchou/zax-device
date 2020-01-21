@@ -86,6 +86,9 @@
 		"typescript": "^3.6.4"
 	},
 	"jest": {
+		"globals": {
+			"__DEV__": true
+		},
 		"testEnvironment": "jest-environment-jsdom",
 		"setupFiles": [
 			"./__mocks__/client.js"

@@ -7,26 +7,14 @@
 npm i zax-device -S
 ```
 
-## build with rollup
-
-``` base
-npm run build
-```
-
 ## usage
 
-### server side
-
 ``` javascript
-let { isClientSide, isServerSide, isIOS, isAndroid, isWechat, isWechatMiniprogram, isAlipayMiniprogram } = require('zax-device')
+let { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping } = require('zax-device')
+
+let { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping } from 'zax-device'
+
 ...
 let foo = isAndroid(ctx.reqeust.header['user-agent'])// in koa middleware way
 ...
-```
-
-
-### client side
-
-``` javascript
-import { isClientSide, isServerSide, isIOS, isAndroid, isWechat, isWechatMiniprogram, isAlipayMiniprogram } from 'zax-device'
 ```
