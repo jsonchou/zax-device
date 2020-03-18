@@ -1,6 +1,6 @@
 jest.setTimeout(30000)
 
-import zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniProgram, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping,AppListDescriptor } from '../src/index'
+import zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniApp, isAlipayMiniApp, isBytedanceMiniApp, isBaiduMiniApp, webviewMapping, AppListDescriptor } from '../src/index'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -96,8 +96,8 @@ describe('zaxDevice', () => {
 		expect(isDouyin(uaList.douyin)).toEqual(true)
 	})
 
-	it(`should be correct isWechatMiniprogram function result `, () => {
-		expect(isWechatMiniprogram()).toEqual(false)
+	it(`should be correct isWechatMiniApp function result `, () => {
+		expect(isWechatMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'wx', {
 			value: {
@@ -107,7 +107,7 @@ describe('zaxDevice', () => {
 			writable: true
 		})
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isWechatMiniprogram()).toEqual(true)
+		expect(isWechatMiniApp()).toEqual(true)
 
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
 		Object.defineProperty(window, 'wx', {
@@ -115,14 +115,14 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		expect(isWechatMiniprogram(uaList.wechatMiniprogram)).toEqual(false)
+		expect(isWechatMiniApp(uaList.wechatMiniApp)).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.wechatMiniprogram, configurable: true, writable: true })
-		expect(isWechatMiniprogram(uaList.wechatMiniprogram)).toEqual(true)
+		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.wechatMiniApp, configurable: true, writable: true })
+		expect(isWechatMiniApp(uaList.wechatMiniApp)).toEqual(true)
 	})
 
-	it(`should be correct isAlipayMiniprogram function result `, () => {
-		expect(isAlipayMiniprogram()).toEqual(false)
+	it(`should be correct isAlipayMiniApp function result `, () => {
+		expect(isAlipayMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'my', {
 			value: {
@@ -132,7 +132,7 @@ describe('zaxDevice', () => {
 			writable: true
 		})
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isAlipayMiniprogram()).toEqual(true)
+		expect(isAlipayMiniApp()).toEqual(true)
 
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
 		Object.defineProperty(window, 'my', {
@@ -140,14 +140,14 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		expect(isAlipayMiniprogram(uaList.alipayMiniprogram)).toEqual(false)
+		expect(isAlipayMiniApp(uaList.alipayMiniApp)).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.alipayMiniprogram, configurable: true, writable: true })
-		expect(isAlipayMiniprogram(uaList.alipayMiniprogram)).toEqual(true)
+		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.alipayMiniApp, configurable: true, writable: true })
+		expect(isAlipayMiniApp(uaList.alipayMiniApp)).toEqual(true)
 	})
 
-	it(`should be correct isBaiduMiniprogram function result `, () => {
-		expect(isBaiduMiniprogram()).toEqual(false)
+	it(`should be correct isBaiduMiniApp function result `, () => {
+		expect(isBaiduMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'swan', {
 			value: {
@@ -157,7 +157,7 @@ describe('zaxDevice', () => {
 			writable: true
 		})
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isBaiduMiniprogram()).toEqual(true)
+		expect(isBaiduMiniApp()).toEqual(true)
 
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
 		Object.defineProperty(window, 'swan', {
@@ -165,14 +165,14 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		expect(isBaiduMiniprogram(uaList.baiduMiniprogram)).toEqual(false)
+		expect(isBaiduMiniApp(uaList.baiduMiniApp)).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.baiduMiniprogram, configurable: true, writable: true })
-		expect(isBaiduMiniprogram(uaList.baiduMiniprogram)).toEqual(true)
+		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.baiduMiniApp, configurable: true, writable: true })
+		expect(isBaiduMiniApp(uaList.baiduMiniApp)).toEqual(true)
 	})
 
-	it(`should be correct isBytedanceMiniprogram function result `, () => {
-		expect(isBytedanceMiniprogram()).toEqual(false)
+	it(`should be correct isBytedanceMiniApp function result `, () => {
+		expect(isBytedanceMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'tt', {
 			value: {
@@ -182,7 +182,7 @@ describe('zaxDevice', () => {
 			writable: true
 		})
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isBytedanceMiniprogram()).toEqual(true)
+		expect(isBytedanceMiniApp()).toEqual(true)
 
 		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
 		Object.defineProperty(window, 'tt', {
@@ -190,18 +190,18 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		expect(isBytedanceMiniprogram(uaList.bytedanceMiniprogram)).toEqual(false)
+		expect(isBytedanceMiniApp(uaList.bytedanceMiniApp)).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.bytedanceMiniprogram, configurable: true, writable: true })
-		expect(isBytedanceMiniprogram(uaList.bytedanceMiniprogram)).toEqual(true)
+		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.bytedanceMiniApp, configurable: true, writable: true })
+		expect(isBytedanceMiniApp(uaList.bytedanceMiniApp)).toEqual(true)
 	})
 
-	it(`should be correct isMiniProgram function result `, () => {
-		expect(isMiniProgram('za')).toEqual(false)
+	it(`should be correct isMiniApp function result `, () => {
+		expect(isMiniApp('za')).toEqual(false)
 		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
 		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isMiniProgram()).toEqual(false)
-		expect(isMiniProgram(myua)).toEqual(false)
+		expect(isMiniApp()).toEqual(false)
+		expect(isMiniApp(myua)).toEqual(false)
 		expect(Object.keys(webviewMapping).length).toEqual(4)
 	})
 
@@ -261,17 +261,17 @@ describe('zaxDevice', () => {
 		expect(isClientSide()).toEqual(false)
 		expect(isServerSide()).toEqual(true)
 		expect(isApp('za' as AppListDescriptor)).toEqual(false)
-		expect(isMiniProgram()).toEqual(false)
+		expect(isMiniApp()).toEqual(false)
 		expect(isIOS()).toEqual(false)
 		expect(isAndroid()).toEqual(false)
 		expect(isWechat()).toEqual(false)
 		expect(isAlipay()).toEqual(false)
 		expect(isToutiao()).toEqual(false)
 		expect(isDouyin()).toEqual(false)
-		expect(isWechatMiniprogram()).toEqual(false)
-		expect(isAlipayMiniprogram()).toEqual(false)
-		expect(isBaiduMiniprogram()).toEqual(false)
-		expect(isBytedanceMiniprogram()).toEqual(false)
+		expect(isWechatMiniApp()).toEqual(false)
+		expect(isAlipayMiniApp()).toEqual(false)
+		expect(isBaiduMiniApp()).toEqual(false)
+		expect(isBytedanceMiniApp()).toEqual(false)
 	})
 })
 

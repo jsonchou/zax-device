@@ -224,18 +224,18 @@ var __assign = (this && this.__assign) || function () {
     }
     exports.isDouyin = isDouyin;
     /**
-     * isWechatMiniprogram
+     * isWechatMiniApp
      *
      * ```js
-     * isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
+     * isWechatMiniApp('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
      * //=> true
-     * isWechatMiniprogram();
+     * isWechatMiniApp();
      * //=> false
      * ```
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    function isWechatMiniprogram(ua) {
+    function isWechatMiniApp(ua) {
         if (ua === void 0) { ua = ''; }
         if (isClientSide()) {
             ua = navigator.userAgent;
@@ -246,20 +246,20 @@ var __assign = (this && this.__assign) || function () {
         /* istanbul ignore next */
         return !isUndef(typeof wx) && wx !== null && (!isUndef(wx.login) || !isUndef(wx.miniProgram));
     }
-    exports.isWechatMiniprogram = isWechatMiniprogram;
+    exports.isWechatMiniApp = isWechatMiniApp;
     /**
-     * isAlipayMiniprogram
+     * isAlipayMiniApp
      *
      * ```js
-     * isAlipayMiniprogram('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
+     * isAlipayMiniApp('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
      * //=> true
-     * isAlipayMiniprogram();
+     * isAlipayMiniApp();
      * //=> false
      * ```
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    function isAlipayMiniprogram(ua) {
+    function isAlipayMiniApp(ua) {
         if (ua === void 0) { ua = ''; }
         if (isClientSide()) {
             ua = navigator.userAgent;
@@ -270,20 +270,20 @@ var __assign = (this && this.__assign) || function () {
         /* istanbul ignore next */
         return !isUndef(typeof my) && my !== null && !isUndef(my.alert);
     }
-    exports.isAlipayMiniprogram = isAlipayMiniprogram;
+    exports.isAlipayMiniApp = isAlipayMiniApp;
     /**
-     * isBaiduMiniprogram
+     * isBaiduMiniApp
      *
      * ```js
-     * isBaiduMiniprogram('');
+     * isBaiduMiniApp('');
      * //=> true
-     * isBaiduMiniprogram();
+     * isBaiduMiniApp();
      * //=> false
      * ```
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    function isBaiduMiniprogram(ua) {
+    function isBaiduMiniApp(ua) {
         if (ua === void 0) { ua = ''; }
         if (isClientSide()) {
             ua = navigator.userAgent;
@@ -294,20 +294,20 @@ var __assign = (this && this.__assign) || function () {
         /* istanbul ignore next */
         return !isUndef(typeof swan) && swan !== null;
     }
-    exports.isBaiduMiniprogram = isBaiduMiniprogram;
+    exports.isBaiduMiniApp = isBaiduMiniApp;
     /**
-     * isBytedanceMiniprogram
+     * isBytedanceMiniApp
      *
      * ```js
-     * isBytedanceMiniprogram('');
+     * isBytedanceMiniApp('');
      * //=> true
-     * isBytedanceMiniprogram();
+     * isBytedanceMiniApp();
      * //=> false
      * ```
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    function isBytedanceMiniprogram(ua) {
+    function isBytedanceMiniApp(ua) {
         if (ua === void 0) { ua = ''; }
         if (isClientSide()) {
             ua = navigator.userAgent;
@@ -318,7 +318,7 @@ var __assign = (this && this.__assign) || function () {
         /* istanbul ignore next */
         return !isUndef(typeof tt) && tt !== null;
     }
-    exports.isBytedanceMiniprogram = isBytedanceMiniprogram;
+    exports.isBytedanceMiniApp = isBytedanceMiniApp;
     /**
      * isApp
      *
@@ -348,39 +348,39 @@ var __assign = (this && this.__assign) || function () {
     }
     exports.isApp = isApp;
     /**
-     * isMiniProgram
+     * isMiniApp
      *
      * ```js
-     * isMiniProgram('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+     * isMiniApp('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
      * //=> true
-     * isMiniProgram('alipay');
+     * isMiniApp('alipay');
      * //=> true
      * ```
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    function isMiniProgram(ua) {
+    function isMiniApp(ua) {
         if (ua === void 0) { ua = ''; }
-        return isWechatMiniprogram(ua) || isAlipayMiniprogram(ua) || isBytedanceMiniprogram(ua) || isBaiduMiniprogram(ua);
+        return isWechatMiniApp(ua) || isAlipayMiniApp(ua) || isBytedanceMiniApp(ua) || isBaiduMiniApp(ua);
     }
-    exports.isMiniProgram = isMiniProgram;
+    exports.isMiniApp = isMiniApp;
     exports.default = {
         setAppMapping: setAppMapping,
         getAppMapping: getAppMapping,
         isClientSide: isClientSide,
         isServerSide: isServerSide,
         isApp: isApp,
-        isMiniProgram: isMiniProgram,
+        isMiniApp: isMiniApp,
         isIOS: isIOS,
         isAndroid: isAndroid,
         isWechat: isWechat,
         isAlipay: isAlipay,
         isToutiao: isToutiao,
         isDouyin: isDouyin,
-        isWechatMiniprogram: isWechatMiniprogram,
-        isAlipayMiniprogram: isAlipayMiniprogram,
-        isBytedanceMiniprogram: isBytedanceMiniprogram,
-        isBaiduMiniprogram: isBaiduMiniprogram
+        isWechatMiniApp: isWechatMiniApp,
+        isAlipayMiniApp: isAlipayMiniApp,
+        isBytedanceMiniApp: isBytedanceMiniApp,
+        isBaiduMiniApp: isBaiduMiniApp
     };
 });
 //# sourceMappingURL=index.js.map

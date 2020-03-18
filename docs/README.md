@@ -21,12 +21,12 @@
     * [~isAlipay()](#module_zaxDevice..isAlipay) ⇒ <code>Boolean</code>
     * [~isToutiao()](#module_zaxDevice..isToutiao) ⇒ <code>Boolean</code>
     * [~isDouyin()](#module_zaxDevice..isDouyin) ⇒ <code>Boolean</code>
-    * [~isWechatMiniprogram()](#module_zaxDevice..isWechatMiniprogram) ⇒ <code>Boolean</code>
-    * [~isAlipayMiniprogram()](#module_zaxDevice..isAlipayMiniprogram) ⇒ <code>Boolean</code>
-    * [~isBaiduMiniprogram()](#module_zaxDevice..isBaiduMiniprogram) ⇒ <code>Boolean</code>
-    * [~isBytedanceMiniprogram()](#module_zaxDevice..isBytedanceMiniprogram) ⇒ <code>Boolean</code>
+    * [~isWechatMiniApp()](#module_zaxDevice..isWechatMiniApp) ⇒ <code>Boolean</code>
+    * [~isAlipayMiniApp()](#module_zaxDevice..isAlipayMiniApp) ⇒ <code>Boolean</code>
+    * [~isBaiduMiniApp()](#module_zaxDevice..isBaiduMiniApp) ⇒ <code>Boolean</code>
+    * [~isBytedanceMiniApp()](#module_zaxDevice..isBytedanceMiniApp) ⇒ <code>Boolean</code>
     * [~isApp()](#module_zaxDevice..isApp) ⇒ <code>Boolean</code>
-    * [~isMiniProgram()](#module_zaxDevice..isMiniProgram) ⇒ <code>Boolean</code>
+    * [~isMiniApp()](#module_zaxDevice..isMiniApp) ⇒ <code>Boolean</code>
 
 <a name="module_zaxDevice..setAppMapping"></a>
 
@@ -160,52 +160,52 @@ isDouyin();
 **Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isWechatMiniprogram"></a>
+<a name="module_zaxDevice..isWechatMiniApp"></a>
 
-### zaxDevice~isWechatMiniprogram() ⇒ <code>Boolean</code>
-<p>isWechatMiniprogram</p>
-<pre class="prettyprint source lang-js"><code>isWechatMiniprogram('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
+### zaxDevice~isWechatMiniApp() ⇒ <code>Boolean</code>
+<p>isWechatMiniApp</p>
+<pre class="prettyprint source lang-js"><code>isWechatMiniApp('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
 //=> true
-isWechatMiniprogram();
+isWechatMiniApp();
 //=> false
 </code></pre>
 
 **Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isAlipayMiniprogram"></a>
+<a name="module_zaxDevice..isAlipayMiniApp"></a>
 
-### zaxDevice~isAlipayMiniprogram() ⇒ <code>Boolean</code>
-<p>isAlipayMiniprogram</p>
-<pre class="prettyprint source lang-js"><code>isAlipayMiniprogram('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
+### zaxDevice~isAlipayMiniApp() ⇒ <code>Boolean</code>
+<p>isAlipayMiniApp</p>
+<pre class="prettyprint source lang-js"><code>isAlipayMiniApp('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
 //=> true
-isAlipayMiniprogram();
+isAlipayMiniApp();
 //=> false
 </code></pre>
 
 **Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isBaiduMiniprogram"></a>
+<a name="module_zaxDevice..isBaiduMiniApp"></a>
 
-### zaxDevice~isBaiduMiniprogram() ⇒ <code>Boolean</code>
-<p>isBaiduMiniprogram</p>
-<pre class="prettyprint source lang-js"><code>isBaiduMiniprogram('');
+### zaxDevice~isBaiduMiniApp() ⇒ <code>Boolean</code>
+<p>isBaiduMiniApp</p>
+<pre class="prettyprint source lang-js"><code>isBaiduMiniApp('');
 //=> true
-isBaiduMiniprogram();
+isBaiduMiniApp();
 //=> false
 </code></pre>
 
 **Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isBytedanceMiniprogram"></a>
+<a name="module_zaxDevice..isBytedanceMiniApp"></a>
 
-### zaxDevice~isBytedanceMiniprogram() ⇒ <code>Boolean</code>
-<p>isBytedanceMiniprogram</p>
-<pre class="prettyprint source lang-js"><code>isBytedanceMiniprogram('');
+### zaxDevice~isBytedanceMiniApp() ⇒ <code>Boolean</code>
+<p>isBytedanceMiniApp</p>
+<pre class="prettyprint source lang-js"><code>isBytedanceMiniApp('');
 //=> true
-isBytedanceMiniprogram();
+isBytedanceMiniApp();
 //=> false
 </code></pre>
 
@@ -225,13 +225,13 @@ isApp('alipay');
 **Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isMiniProgram"></a>
+<a name="module_zaxDevice..isMiniApp"></a>
 
-### zaxDevice~isMiniProgram() ⇒ <code>Boolean</code>
-<p>isMiniProgram</p>
-<pre class="prettyprint source lang-js"><code>isMiniProgram('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+### zaxDevice~isMiniApp() ⇒ <code>Boolean</code>
+<p>isMiniApp</p>
+<pre class="prettyprint source lang-js"><code>isMiniApp('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
 //=> true
-isMiniProgram('alipay');
+isMiniApp('alipay');
 //=> true
 </code></pre>
 
