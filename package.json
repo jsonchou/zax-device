@@ -62,7 +62,7 @@
 	"private": false,
 	"types": "types/index.d.ts",
 	"devDependencies": {
-		"@babel/cli": "^7.6.4",
+		"@babel/cli": "^7.8.4",
 		"@babel/core": "^7.6.4",
 		"@babel/plugin-proposal-class-properties": "^7.5.5",
 		"@babel/plugin-proposal-object-rest-spread": "^7.6.2",

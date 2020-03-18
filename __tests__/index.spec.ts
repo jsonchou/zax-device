@@ -1,6 +1,6 @@
 jest.setTimeout(30000)
 
-import zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniProgram, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping } from '../src/index'
+import zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniProgram, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping,AppListDescriptor } from '../src/index'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -206,22 +206,22 @@ describe('zaxDevice', () => {
 	})
 
 	it(`should be correct isApp function result `, () => {
-		expect(isApp('za')).toEqual(false)
+		expect(isApp('za' as AppListDescriptor)).toEqual(false)
 		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
 		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isApp('za', myua)).toEqual(false)
-		expect(isApp('za')).toEqual(false)
+		expect(isApp('za' as AppListDescriptor, myua)).toEqual(false)
+		expect(isApp('za' as AppListDescriptor)).toEqual(false)
 		expect(Object.keys(webviewMapping).length).toEqual(4)
 	})
 
 	it(`set app mapping`, () => {
 		let res = setAppMapping('dax', 'jsonchou')
 		console.log(res, window.navigator.userAgent || 'empty user agent')
-		expect(isApp('dax')).toEqual(false)
+		expect(isApp('dax' as AppListDescriptor)).toEqual(false)
 		const myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36jsonchou`
 		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isApp('dax', myua)).toEqual(true)
-		expect(isApp('dax')).toEqual(true)
+		expect(isApp('dax' as AppListDescriptor, myua)).toEqual(true)
+		expect(isApp('dax' as AppListDescriptor)).toEqual(true)
 		expect(webviewMapping).toEqual({
 			alipay: 'AliApp',
 			wechat: 'MicroMessenger',
@@ -260,7 +260,7 @@ describe('zaxDevice', () => {
 
 		expect(isClientSide()).toEqual(false)
 		expect(isServerSide()).toEqual(true)
-		expect(isApp('za')).toEqual(false)
+		expect(isApp('za' as AppListDescriptor)).toEqual(false)
 		expect(isMiniProgram()).toEqual(false)
 		expect(isIOS()).toEqual(false)
 		expect(isAndroid()).toEqual(false)

@@ -19,7 +19,7 @@ export const webviewMapping = {
 	douyin: 'Aweme'
 }
 
-export type AppListDescriptor = keyof typeof webviewMapping | keyof Record<string, string>
+export type AppListDescriptor = keyof typeof webviewMapping 
 
 function extendLiteral<T>(obj: T, key: string, val: string): T & Record<string, string> {
 	return {
