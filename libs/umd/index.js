@@ -94,7 +94,7 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Boolean } result
      */
     function isClientSide() {
-        return !isUndef(typeof window) && !!window['onload'];
+        return !isUndef(typeof window) && !isUndef(typeof document);
     }
     exports.isClientSide = isClientSide;
     /**

@@ -84,7 +84,7 @@ export function getAppMapping(): Record<string, string> {
  */
 
 export function isClientSide(): boolean {
-	return !isUndef(typeof window) && !!window['onload']
+	return !isUndef(typeof window) && !isUndef(typeof document)
 }
 
 /**
