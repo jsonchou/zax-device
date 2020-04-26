@@ -85,7 +85,7 @@
 ### zaxDevice~isIOS() ⇒ <code>Boolean</code>
 <p>isIOS</p>
 <p>not support miniprogram</p>
-<pre class="prettyprint source lang-js"><code>isIOS('Mozilla/5.0 (iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1');
+<pre class="prettyprint source lang-js"><code>isIOS(ctx.request.headers['user-agent']);//(iPhone; CPU iPhone OS 13_1 like Mac OS X)
 //=> true
 isIOS();
 //=> false
@@ -99,7 +99,7 @@ isIOS();
 ### zaxDevice~isAndroid() ⇒ <code>Boolean</code>
 <p>isAndroid</p>
 <p>not support miniprogram</p>
-<pre class="prettyprint source lang-js"><code>isAndroid('Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.61 Mobile Safari/537.36');
+<pre class="prettyprint source lang-js"><code>isAndroid(ctx.request.headers['user-agent']);//(Linux; Android 10)
 //=> true
 isAndroid();
 //=> false
@@ -112,7 +112,7 @@ isAndroid();
 
 ### zaxDevice~isWechat() ⇒ <code>Boolean</code>
 <p>isWechat</p>
-<pre class="prettyprint source lang-js"><code>isWechat('Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 MicroMessenger/6.5.2.501 NetType/WIFI WindowsWechat');
+<pre class="prettyprint source lang-js"><code>isWechat(ctx.request.headers['user-agent']);//MicroMessenger
 //=> true
 isWechat();
 //=> false
@@ -125,7 +125,7 @@ isWechat();
 
 ### zaxDevice~isAlipay() ⇒ <code>Boolean</code>
 <p>isAlipay</p>
-<pre class="prettyprint source lang-js"><code>isAlipay('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
+<pre class="prettyprint source lang-js"><code>isAlipay(ctx.request.headers['user-agent']);//AlipayClient
 //=> true
 isAlipay();
 //=> false
@@ -138,7 +138,7 @@ isAlipay();
 
 ### zaxDevice~isToutiao() ⇒ <code>Boolean</code>
 <p>isToutiao</p>
-<pre class="prettyprint source lang-js"><code>isToutiao('Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2');
+<pre class="prettyprint source lang-js"><code>isToutiao(ctx.request.headers['user-agent']);//NewsArticle
 //=> true
 isToutiao();
 //=> false
@@ -151,7 +151,7 @@ isToutiao();
 
 ### zaxDevice~isDouyin() ⇒ <code>Boolean</code>
 <p>isDouyin</p>
-<pre class="prettyprint source lang-js"><code>isDouyin('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
+<pre class="prettyprint source lang-js"><code>isDouyin(ctx.request.headers['user-agent']);//Aweme
 //=> true
 isDouyin();
 //=> false
@@ -164,7 +164,7 @@ isDouyin();
 
 ### zaxDevice~isWechatMiniApp() ⇒ <code>Boolean</code>
 <p>isWechatMiniApp</p>
-<pre class="prettyprint source lang-js"><code>isWechatMiniApp('Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram');
+<pre class="prettyprint source lang-js"><code>isWechatMiniApp(ctx.request.headers['user-agent']);//MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram
 //=> true
 isWechatMiniApp();
 //=> false
@@ -177,7 +177,7 @@ isWechatMiniApp();
 
 ### zaxDevice~isAlipayMiniApp() ⇒ <code>Boolean</code>
 <p>isAlipayMiniApp</p>
-<pre class="prettyprint source lang-js"><code>isAlipayMiniApp('Mozilla/5.0 (Linux; U; Android 9; zh-CN; HLK-AL00 Build/HONORHLK-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.21.0.73 Mobile Safari/537.36 UCBS/3.21.0.73_191212221923 NebulaSDK/1.8.100112 Nebula AlipayDefined(nt:WIFI,ws:360|0|3.0) AliApp(AP/10.1.82.9020) AlipayClient/10.1.82.9020 Language/zh-Hans useStatusBar/true isConcaveScreen/false Region/CN');
+<pre class="prettyprint source lang-js"><code>isAlipayMiniApp(ctx.request.headers['user-agent']);//AlipayClient/10.1.82.9020
 //=> true
 isAlipayMiniApp();
 //=> false
@@ -216,7 +216,7 @@ isBytedanceMiniApp();
 
 ### zaxDevice~isApp() ⇒ <code>Boolean</code>
 <p>isApp</p>
-<pre class="prettyprint source lang-js"><code>isApp('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+<pre class="prettyprint source lang-js"><code>isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
 //=> true
 isApp('alipay');
 //=> true
@@ -229,7 +229,7 @@ isApp('alipay');
 
 ### zaxDevice~isMiniApp() ⇒ <code>Boolean</code>
 <p>isMiniApp</p>
-<pre class="prettyprint source lang-js"><code>isMiniApp('za','Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView');
+<pre class="prettyprint source lang-js"><code>isMiniApp('');
 //=> true
 isMiniApp('alipay');
 //=> true
