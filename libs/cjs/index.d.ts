@@ -206,6 +206,11 @@ export declare function isBytedanceMiniApp(ua?: string): boolean;
  * isApp
  *
  * ```js
+ * {
+ *  	alipay: 'AliApp',
+ *  	wechat: 'MicroMessenger',
+ *  	tt: 'ToutiaoMicroApp',
+ * }
  * isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
  * //=> true
  * isApp('alipay');
@@ -214,7 +219,7 @@ export declare function isBytedanceMiniApp(ua?: string): boolean;
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export declare function isApp(appFlag: AppListDescriptor, ua?: string): boolean;
+export declare function isApp(appFlag: AppListDescriptor | string, ua?: string): boolean;
 /**
  * isMiniApp
  *

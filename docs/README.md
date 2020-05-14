@@ -216,7 +216,12 @@ isBytedanceMiniApp();
 
 ### zaxDevice~isApp() ⇒ <code>Boolean</code>
 <p>isApp</p>
-<pre class="prettyprint source lang-js"><code>isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
+<pre class="prettyprint source lang-js"><code>{
+ 	alipay: 'AliApp',
+ 	wechat: 'MicroMessenger',
+ 	tt: 'ToutiaoMicroApp',
+}
+isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
 //=> true
 isApp('alipay');
 //=> true

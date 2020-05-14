@@ -28,6 +28,7 @@ var __assign = (this && this.__assign) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.isMiniApp = exports.isApp = exports.isBytedanceMiniApp = exports.isBaiduMiniApp = exports.isAlipayMiniApp = exports.isWechatMiniApp = exports.isDouyin = exports.isToutiao = exports.isAlipay = exports.isWechat = exports.isAndroid = exports.isIOS = exports.isServerSide = exports.isClientSide = exports.getAppMapping = exports.setAppMapping = exports.webviewMapping = void 0;
     // 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2'
     // 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)'
     exports.webviewMapping = {
@@ -323,6 +324,11 @@ var __assign = (this && this.__assign) || function () {
      * isApp
      *
      * ```js
+     * {
+     *  	alipay: 'AliApp',
+     *  	wechat: 'MicroMessenger',
+     *  	tt: 'ToutiaoMicroApp',
+     * }
      * isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
      * //=> true
      * isApp('alipay');

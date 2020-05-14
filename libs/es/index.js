@@ -276,6 +276,11 @@ export function isBytedanceMiniApp(ua = '') {
  * isApp
  *
  * ```js
+ * {
+ *  	alipay: 'AliApp',
+ *  	wechat: 'MicroMessenger',
+ *  	tt: 'ToutiaoMicroApp',
+ * }
  * isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
  * //=> true
  * isApp('alipay');

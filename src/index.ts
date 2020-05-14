@@ -19,7 +19,7 @@ export const webviewMapping = {
 	douyin: 'Aweme'
 }
 
-export type AppListDescriptor = keyof typeof webviewMapping 
+export type AppListDescriptor = keyof typeof webviewMapping
 
 function extendLiteral<T>(obj: T, key: string, val: string): T & Record<string, string> {
 	return {
@@ -303,6 +303,11 @@ export function isBytedanceMiniApp(ua: string = ''): boolean {
  * isApp
  *
  * ```js
+ * {
+ *  	alipay: 'AliApp',
+ *  	wechat: 'MicroMessenger',
+ *  	tt: 'ToutiaoMicroApp',
+ * }
  * isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
  * //=> true
  * isApp('alipay');
@@ -311,12 +316,12 @@ export function isBytedanceMiniApp(ua: string = ''): boolean {
  * @params ua { String } user agent
  * @returns { Boolean } result
  */
-export function isApp(appFlag: AppListDescriptor, ua: string = ''): boolean {
+export function isApp(appFlag: AppListDescriptor | string, ua: string = ''): boolean {
 	if (isClientSide()) {
 		ua = navigator.userAgent
 	}
 	if (ua) {
-		let rex = webviewMapping && webviewMapping[appFlag]
+		let rex = webviewMapping && webviewMapping[appFlag as AppListDescriptor]
 		/* istanbul ignore next */
 		if (!rex) {
 			return false
