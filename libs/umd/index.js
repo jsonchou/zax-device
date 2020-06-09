@@ -37,10 +37,6 @@ var __assign = (this && this.__assign) || function () {
         toutiao: 'NewsArticle',
         douyin: 'Aweme'
     };
-    function extendLiteral(obj, key, val) {
-        var _a;
-        return __assign(__assign({}, obj), (_a = {}, _a[key] = val, _a));
-    }
     function isUndef(tp) {
         return tp === 'undefined';
     }
@@ -61,8 +57,9 @@ var __assign = (this && this.__assign) || function () {
      * @returns { Record<string, string> } result
      */
     function setAppMapping(key, regexFlag) {
+        var _a;
         exports.webviewMapping[key] = regexFlag;
-        return extendLiteral(exports.webviewMapping, key, regexFlag);
+        return __assign(__assign({}, exports.webviewMapping), (_a = {}, _a[key] = regexFlag, _a));
     }
     exports.setAppMapping = setAppMapping;
     /**

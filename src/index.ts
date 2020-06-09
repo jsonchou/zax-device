@@ -12,7 +12,7 @@ type Nothing = {} // jsdoc2md bugs, do not remove this line
 // 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2'
 // 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)'
 
-export const webviewMapping = {
+export let webviewMapping = {
 	alipay: 'AliApp',
 	wechat: 'MicroMessenger',
 	toutiao: 'NewsArticle',
@@ -20,13 +20,6 @@ export const webviewMapping = {
 }
 
 export type AppListDescriptor = keyof typeof webviewMapping
-
-function extendLiteral<T>(obj: T, key: string, val: string): T & Record<string, string> {
-	return {
-		...obj,
-		[key]: val
-	}
-}
 
 function isUndef(tp: any): boolean {
 	return tp === 'undefined'
@@ -50,7 +43,10 @@ function isUndef(tp: any): boolean {
  */
 export function setAppMapping(key: string, regexFlag: string): Record<string, string> {
 	webviewMapping[key] = regexFlag
-	return extendLiteral(webviewMapping, key, regexFlag)
+	return {
+		...webviewMapping,
+		[key]: regexFlag
+	}
 }
 
 /**

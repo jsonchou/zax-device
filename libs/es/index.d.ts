@@ -6,7 +6,7 @@
  * @see https://github.com/faisalman/ua-parser-js
  * @see https://demo.mobiledetect.net/
  */
-export declare const webviewMapping: {
+export declare let webviewMapping: {
     alipay: string;
     wechat: string;
     toutiao: string;

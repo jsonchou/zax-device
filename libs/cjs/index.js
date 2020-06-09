@@ -28,10 +28,6 @@ exports.webviewMapping = {
     toutiao: 'NewsArticle',
     douyin: 'Aweme'
 };
-function extendLiteral(obj, key, val) {
-    var _a;
-    return __assign(__assign({}, obj), (_a = {}, _a[key] = val, _a));
-}
 function isUndef(tp) {
     return tp === 'undefined';
 }
@@ -52,8 +48,9 @@ function isUndef(tp) {
  * @returns { Record<string, string> } result
  */
 function setAppMapping(key, regexFlag) {
+    var _a;
     exports.webviewMapping[key] = regexFlag;
-    return extendLiteral(exports.webviewMapping, key, regexFlag);
+    return __assign(__assign({}, exports.webviewMapping), (_a = {}, _a[key] = regexFlag, _a));
 }
 exports.setAppMapping = setAppMapping;
 /**

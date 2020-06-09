@@ -8,15 +8,12 @@
  */
 // 'Dalvik/1.6.0 (Linux; U; Android 4.4.4; MuMu Build/V417IR) NewsArticle/6.3.1 okhttp/3.7.0.2'
 // 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)'
-export const webviewMapping = {
+export let webviewMapping = {
     alipay: 'AliApp',
     wechat: 'MicroMessenger',
     toutiao: 'NewsArticle',
     douyin: 'Aweme'
 };
-function extendLiteral(obj, key, val) {
-    return Object.assign(Object.assign({}, obj), { [key]: val });
-}
 function isUndef(tp) {
     return tp === 'undefined';
 }
@@ -38,7 +35,7 @@ function isUndef(tp) {
  */
 export function setAppMapping(key, regexFlag) {
     webviewMapping[key] = regexFlag;
-    return extendLiteral(webviewMapping, key, regexFlag);
+    return Object.assign(Object.assign({}, webviewMapping), { [key]: regexFlag });
 }
 /**
  * getAppMapping
