@@ -3,7 +3,6 @@
 	"version": "2.0.13",
 	"description": "zax-device",
 	"main": "./libs/cjs",
-	"module": "./libs/es",
 	"sideEffects": false,
 	"directories": {
 		"test": "test",
@@ -54,7 +53,7 @@
 		"> 1%",
 		"ie >= 9",
 		"iOS >= 9",
-		"Android >= 4.3"
+		"Android >= 4.4"
 	],
 	"homepage": "https://github.com/jsonchou/zax-device",
 	"author": "jsonchou",

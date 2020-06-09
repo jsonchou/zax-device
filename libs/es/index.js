@@ -35,7 +35,7 @@ function isUndef(tp) {
  */
 export function setAppMapping(key, regexFlag) {
     webviewMapping[key] = regexFlag;
-    return Object.assign(Object.assign({}, webviewMapping), { [key]: regexFlag });
+    return webviewMapping;
 }
 /**
  * getAppMapping

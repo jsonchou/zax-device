@@ -43,10 +43,7 @@ function isUndef(tp: any): boolean {
  */
 export function setAppMapping(key: string, regexFlag: string): Record<string, string> {
 	webviewMapping[key] = regexFlag
-	return {
-		...webviewMapping,
-		[key]: regexFlag
-	}
+	return webviewMapping
 }
 
 /**
