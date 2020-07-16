@@ -1,11 +1,10 @@
 jest.setTimeout(30000)
 
-import zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniApp, isAlipayMiniApp, isBytedanceMiniApp, isBaiduMiniApp, webviewMapping, AppListDescriptor } from '../src/index'
-
 import * as fs from 'fs'
 import * as path from 'path'
 
 import { log } from '../src/_utils/index'
+import ZaxDevice, { ZaxDeviceOptions } from '../src/index'
 
 const html = fs.readFileSync(path.resolve(__dirname, '../__mocks__', 'index.html'), 'utf8')
 
@@ -15,24 +14,31 @@ let waitObj = {
 
 const uaList = require('../__mocks__/ua-list')
 
+let zaxDevice = new ZaxDevice({
+	ua: '',
+	appMapping: {
+		'za': 'zhonganwebview'
+	}
+})
+
 describe('zaxDevice', () => {
 	beforeEach(() => {
 		//set default client environment
 		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.fix, configurable: true, writable: true })
 		Object.defineProperty(window, 'document', { value: window.document, configurable: true, writable: true })
 		Object.defineProperty(window, 'onload', { value: console.log, configurable: true, writable: true })
+		zaxDevice = new ZaxDevice(uaList.fix)
 	})
 
 	let keys = Object.keys(zaxDevice)
 	keys.forEach(par => {
 		it(`should have ${par} method`, () => {
 			expect(zaxDevice).toHaveProperty(par)
-			expect(zaxDevice[par]).toBeInstanceOf(Function)
 		})
 	})
 
 	it(`should be correct isClientSide function result `, () => {
-		expect(isClientSide()).toEqual(true)
+		expect(zaxDevice.isClientSide()).toEqual(true)
 	})
 
 	it(`should be correct isServerSide function result `, () => {
@@ -43,61 +49,61 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		expect(isServerSide()).toEqual(true)
+		expect(zaxDevice.isServerSide()).toEqual(true)
 
 		Object.defineProperty(process, 'versions', {
 			value: '',
 			configurable: true,
 			writable: true
 		})
-		expect(isServerSide()).toEqual(false)
+		expect(zaxDevice.isServerSide()).toEqual(false)
 
 		Object.defineProperty(process, 'versions', {
 			value: null,
 			configurable: true,
 			writable: true
 		})
-		expect(isServerSide()).toEqual(false)
+		expect(zaxDevice.isServerSide()).toEqual(false)
 	})
 
 	it(`should be correct isIOS function result `, () => {
-		expect(isIOS()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.ios, configurable: true, writable: true })
-		expect(isIOS(uaList.ios)).toEqual(true)
+		expect(zaxDevice.isIOS()).toEqual(false)
+		zaxDevice.setUA(uaList.ios)
+		expect(zaxDevice.isIOS()).toEqual(true)
 	})
 
 	it(`should be correct isAndroid function result `, () => {
-		expect(isAndroid()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.android, configurable: true, writable: true })
-		expect(isAndroid(uaList.android)).toEqual(true)
+		expect(zaxDevice.isAndroid()).toEqual(false)
+		zaxDevice.setUA(uaList.android)
+		expect(zaxDevice.isAndroid()).toEqual(true)
 	})
 
 	it(`should be correct isWechat function result `, () => {
-		expect(isWechat()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.wechat, configurable: true, writable: true })
-		expect(isWechat(uaList.wechat)).toEqual(true)
+		expect(zaxDevice.isWechat()).toEqual(false)
+		zaxDevice.setUA(uaList.wechat)
+		expect(zaxDevice.isWechat()).toEqual(true)
 	})
 
 	it(`should be correct isAlipay function result `, () => {
-		expect(isAlipay()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.alipay, configurable: true, writable: true })
-		expect(isAlipay(uaList.alipay)).toEqual(true)
+		expect(zaxDevice.isAlipay()).toEqual(false)
+		zaxDevice.setUA(uaList.alipay)
+		expect(zaxDevice.isAlipay()).toEqual(true)
 	})
 
 	it(`should be correct isToutiao function result `, () => {
-		expect(isToutiao()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.toutiao, configurable: true, writable: true })
-		expect(isToutiao(uaList.toutiao)).toEqual(true)
+		expect(zaxDevice.isToutiao()).toEqual(false)
+		zaxDevice.setUA(uaList.toutiao)
+		expect(zaxDevice.isToutiao()).toEqual(true)
 	})
 
 	it(`should be correct isDouyin function result `, () => {
-		expect(isDouyin()).toEqual(false)
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.douyin, configurable: true, writable: true })
-		expect(isDouyin(uaList.douyin)).toEqual(true)
+		expect(zaxDevice.isDouyin()).toEqual(false)
+		zaxDevice.setUA(uaList.douyin)
+		expect(zaxDevice.isDouyin()).toEqual(true)
 	})
 
 	it(`should be correct isWechatMiniApp function result `, () => {
-		expect(isWechatMiniApp()).toEqual(false)
+		expect(zaxDevice.isWechatMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'wx', {
 			value: {
@@ -106,23 +112,22 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isWechatMiniApp()).toEqual(true)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isWechatMiniApp()).toEqual(true)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
+		zaxDevice.setUA('')
 		Object.defineProperty(window, 'wx', {
 			value: null,
 			configurable: true,
 			writable: true
 		})
-		expect(isWechatMiniApp(uaList.wechatMiniApp)).toEqual(false)
-
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.wechatMiniApp, configurable: true, writable: true })
-		expect(isWechatMiniApp(uaList.wechatMiniApp)).toEqual(true)
+		expect(zaxDevice.isWechatMiniApp()).toEqual(false)
+		zaxDevice.setUA(uaList.wechatMiniApp)
+		expect(zaxDevice.isWechatMiniApp()).toEqual(true)
 	})
 
 	it(`should be correct isAlipayMiniApp function result `, () => {
-		expect(isAlipayMiniApp()).toEqual(false)
+		expect(zaxDevice.isAlipayMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'my', {
 			value: {
@@ -131,23 +136,23 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isAlipayMiniApp()).toEqual(true)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isAlipayMiniApp()).toEqual(true)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
+		zaxDevice.setUA('')
 		Object.defineProperty(window, 'my', {
 			value: null,
 			configurable: true,
 			writable: true
 		})
-		expect(isAlipayMiniApp(uaList.alipayMiniApp)).toEqual(false)
+		expect(zaxDevice.isAlipayMiniApp()).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.alipayMiniApp, configurable: true, writable: true })
-		expect(isAlipayMiniApp(uaList.alipayMiniApp)).toEqual(true)
+		zaxDevice.setUA(uaList.alipayMiniApp)
+		expect(zaxDevice.isAlipayMiniApp()).toEqual(true)
 	})
 
 	it(`should be correct isBaiduMiniApp function result `, () => {
-		expect(isBaiduMiniApp()).toEqual(false)
+		expect(zaxDevice.isBaiduMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'swan', {
 			value: {
@@ -156,23 +161,23 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isBaiduMiniApp()).toEqual(true)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isBaiduMiniApp()).toEqual(true)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
+		zaxDevice.setUA('')
 		Object.defineProperty(window, 'swan', {
 			value: null,
 			configurable: true,
 			writable: true
 		})
-		expect(isBaiduMiniApp(uaList.baiduMiniApp)).toEqual(false)
+		expect(zaxDevice.isBaiduMiniApp()).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.baiduMiniApp, configurable: true, writable: true })
-		expect(isBaiduMiniApp(uaList.baiduMiniApp)).toEqual(true)
+		zaxDevice.setUA(uaList.baiduMiniApp)
+		expect(zaxDevice.isBaiduMiniApp()).toEqual(true)
 	})
 
 	it(`should be correct isBytedanceMiniApp function result `, () => {
-		expect(isBytedanceMiniApp()).toEqual(false)
+		expect(zaxDevice.isBytedanceMiniApp()).toEqual(false)
 
 		Object.defineProperty(window, 'tt', {
 			value: {
@@ -181,67 +186,78 @@ describe('zaxDevice', () => {
 			configurable: true,
 			writable: true
 		})
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
-		expect(isBytedanceMiniApp()).toEqual(true)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isBytedanceMiniApp()).toEqual(true)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: null, configurable: true, writable: true })
+		zaxDevice.setUA('')
 		Object.defineProperty(window, 'tt', {
 			value: null,
 			configurable: true,
 			writable: true
 		})
-		expect(isBytedanceMiniApp(uaList.bytedanceMiniApp)).toEqual(false)
+		expect(zaxDevice.isBytedanceMiniApp()).toEqual(false)
 
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.bytedanceMiniApp, configurable: true, writable: true })
-		expect(isBytedanceMiniApp(uaList.bytedanceMiniApp)).toEqual(true)
+		zaxDevice.setUA(uaList.bytedanceMiniApp)
+		expect(zaxDevice.isBytedanceMiniApp()).toEqual(true)
 	})
 
 	it(`should be correct isMiniApp function result `, () => {
-		expect(isMiniApp('za')).toEqual(false)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isMiniApp()).toEqual(false)
 		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
-		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isMiniApp()).toEqual(false)
-		expect(isMiniApp(myua)).toEqual(false)
-		expect(Object.keys(webviewMapping).length).toEqual(4)
+		zaxDevice.setUA(myua)
+		expect(zaxDevice.isMiniApp()).toEqual(false)
+		expect(zaxDevice.isMiniApp()).toEqual(false)
+		if (zaxDevice.appMapping) {
+			expect(Object.keys(zaxDevice.appMapping).length).toEqual(4)
+		}
 	})
 
 	it(`should be correct isApp function result `, () => {
-		expect(isApp('za')).toEqual(false)
+		zaxDevice.setUA('')
+		expect(zaxDevice.isApp('za')).toEqual(false)
 		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
-		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isApp('za', myua)).toEqual(false)
-		expect(isApp('za')).toEqual(false)
-		expect(Object.keys(webviewMapping).length).toEqual(4)
+		zaxDevice.setUA(myua)
+		zaxDevice.setAppMapping('za', 'ZhongAnWebView')
+		expect(zaxDevice.isApp('za')).toEqual(true)
+
+		if (zaxDevice.appMapping) {
+			expect(zaxDevice.appMapping).toEqual({
+				alipay: 'AliApp',
+				wechat: 'MicroMessenger',
+				toutiao: 'NewsArticle',
+				douyin: 'Aweme',
+				za: "ZhongAnWebView"
+			})
+		}
 	})
 
 	it(`set app mapping`, () => {
-		let res = setAppMapping('dax', 'jsonchou')
-		console.log(res, window.navigator.userAgent || 'empty user agent')
-		expect(isApp('dax')).toEqual(false)
+		zaxDevice.setUA('')
+
+		if (zaxDevice.appMapping) {
+			expect(zaxDevice.appMapping).toEqual({
+				alipay: 'AliApp',
+				wechat: 'MicroMessenger',
+				toutiao: 'NewsArticle',
+				douyin: 'Aweme'
+			})
+		}
+
+		let res = zaxDevice.setAppMapping('dax', 'jsonchou')
+		console.log('get zaxDevice.options', zaxDevice.options)
+
+		expect(zaxDevice.isApp('dax')).toEqual(false)
 		const myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36jsonchou`
-		Object.defineProperty(window.navigator, 'userAgent', { value: myua, configurable: true, writable: true })
-		expect(isApp('dax', myua)).toEqual(true)
-		expect(isApp('dax')).toEqual(true)
-		expect(webviewMapping).toEqual({
+		zaxDevice.setUA(myua)
+		expect(zaxDevice.isApp('dax')).toEqual(true)
+		expect(zaxDevice.appMapping).toEqual({
 			alipay: 'AliApp',
 			wechat: 'MicroMessenger',
 			toutiao: 'NewsArticle',
 			douyin: 'Aweme',
 			dax: 'jsonchou'
 		})
-	})
-
-	it(`get app mapping`, () => {
-		let res = getAppMapping()
-		expect(res).toEqual({
-			alipay: 'AliApp',
-			wechat: 'MicroMessenger',
-			toutiao: 'NewsArticle',
-			douyin: 'Aweme',
-			dax: 'jsonchou'
-		})
-
-		expect(res).toEqual(webviewMapping)
 	})
 
 	it(`simulate server side `, () => {
@@ -258,20 +274,28 @@ describe('zaxDevice', () => {
 			writable: true
 		})
 
-		expect(isClientSide()).toEqual(false)
-		expect(isServerSide()).toEqual(true)
-		expect(isApp('za')).toEqual(false)
-		expect(isMiniApp()).toEqual(false)
-		expect(isIOS()).toEqual(false)
-		expect(isAndroid()).toEqual(false)
-		expect(isWechat()).toEqual(false)
-		expect(isAlipay()).toEqual(false)
-		expect(isToutiao()).toEqual(false)
-		expect(isDouyin()).toEqual(false)
-		expect(isWechatMiniApp()).toEqual(false)
-		expect(isAlipayMiniApp()).toEqual(false)
-		expect(isBaiduMiniApp()).toEqual(false)
-		expect(isBytedanceMiniApp()).toEqual(false)
+		expect(zaxDevice.isClientSide()).toEqual(false)
+		expect(zaxDevice.isServerSide()).toEqual(true)
+		expect(zaxDevice.isApp('za')).toEqual(false)
+
+		expect(zaxDevice.isMiniApp()).toEqual(false)
+		expect(zaxDevice.isIOS()).toEqual(false)
+		expect(zaxDevice.isAndroid()).toEqual(false)
+		expect(zaxDevice.isWechat()).toEqual(false)
+		expect(zaxDevice.isAlipay()).toEqual(false)
+		expect(zaxDevice.isToutiao()).toEqual(false)
+		expect(zaxDevice.isDouyin()).toEqual(false)
+		expect(zaxDevice.isWechatMiniApp()).toEqual(false)
+		expect(zaxDevice.isAlipayMiniApp()).toEqual(false)
+		expect(zaxDevice.isBaiduMiniApp()).toEqual(false)
+		expect(zaxDevice.isBytedanceMiniApp()).toEqual(false)
+
+
+		zaxDevice.setAppMapping('za', 'ZhongAnWebView')
+		let myua = `Mozilla/5.0 (Linux; Android 9; HLK-AL00 Build/HONORHLK-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.64 Mobile Safari/537.36ZhongAnWebView`
+		zaxDevice.setUA(myua)
+		expect(zaxDevice.isApp()).toEqual(true)
+
 	})
 })
 

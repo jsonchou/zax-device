@@ -1,8 +1,9 @@
-<a name="module_zaxDevice"></a>
+<a name="ZaxDevice"></a>
 
-## zaxDevice
+## ZaxDevice : <code>object</code>
 <p>support browser &amp; server side.</p>
 
+**Kind**: global namespace  
 **See**
 
 - https://github.com/jsonchou/zax-device/tree/master/docs
@@ -10,236 +11,219 @@
 - https://demo.mobiledetect.net/
 
 
-* [zaxDevice](#module_zaxDevice)
-    * [~setAppMapping()](#module_zaxDevice..setAppMapping) ⇒ <code>Record.&lt;string, string&gt;</code>
-    * [~getAppMapping()](#module_zaxDevice..getAppMapping) ⇒ <code>Record.&lt;string, string&gt;</code>
-    * [~isClientSide()](#module_zaxDevice..isClientSide) ⇒ <code>Boolean</code>
-    * [~isServerSide()](#module_zaxDevice..isServerSide) ⇒ <code>Boolean</code>
-    * [~isIOS()](#module_zaxDevice..isIOS) ⇒ <code>Boolean</code>
-    * [~isAndroid()](#module_zaxDevice..isAndroid) ⇒ <code>Boolean</code>
-    * [~isWechat()](#module_zaxDevice..isWechat) ⇒ <code>Boolean</code>
-    * [~isAlipay()](#module_zaxDevice..isAlipay) ⇒ <code>Boolean</code>
-    * [~isToutiao()](#module_zaxDevice..isToutiao) ⇒ <code>Boolean</code>
-    * [~isDouyin()](#module_zaxDevice..isDouyin) ⇒ <code>Boolean</code>
-    * [~isWechatMiniApp()](#module_zaxDevice..isWechatMiniApp) ⇒ <code>Boolean</code>
-    * [~isAlipayMiniApp()](#module_zaxDevice..isAlipayMiniApp) ⇒ <code>Boolean</code>
-    * [~isBaiduMiniApp()](#module_zaxDevice..isBaiduMiniApp) ⇒ <code>Boolean</code>
-    * [~isBytedanceMiniApp()](#module_zaxDevice..isBytedanceMiniApp) ⇒ <code>Boolean</code>
-    * [~isApp()](#module_zaxDevice..isApp) ⇒ <code>Boolean</code>
-    * [~isMiniApp()](#module_zaxDevice..isMiniApp) ⇒ <code>Boolean</code>
+* [ZaxDevice](#ZaxDevice) : <code>object</code>
+    * [.setAppMapping()](#ZaxDevice+setAppMapping) ⇒ <code>ZaxDeviceOptions</code>
+    * [.setUA()](#ZaxDevice+setUA) ⇒ <code>ZaxDeviceOptions</code>
+    * [.isClientSide()](#ZaxDevice+isClientSide) ⇒ <code>Boolean</code>
+    * [.isServerSide()](#ZaxDevice+isServerSide) ⇒ <code>Boolean</code>
+    * [.isIOS()](#ZaxDevice+isIOS) ⇒ <code>Boolean</code>
+    * [.isAndroid()](#ZaxDevice+isAndroid) ⇒ <code>Boolean</code>
+    * [.isWechat()](#ZaxDevice+isWechat) ⇒ <code>Boolean</code>
+    * [.isAlipay()](#ZaxDevice+isAlipay) ⇒ <code>Boolean</code>
+    * [.isToutiao()](#ZaxDevice+isToutiao) ⇒ <code>Boolean</code>
+    * [.isDouyin()](#ZaxDevice+isDouyin) ⇒ <code>Boolean</code>
+    * [.isWechatMiniApp()](#ZaxDevice+isWechatMiniApp) ⇒ <code>Boolean</code>
+    * [.isAlipayMiniApp()](#ZaxDevice+isAlipayMiniApp) ⇒ <code>Boolean</code>
+    * [.isBaiduMiniApp()](#ZaxDevice+isBaiduMiniApp) ⇒ <code>Boolean</code>
+    * [.isBytedanceMiniApp()](#ZaxDevice+isBytedanceMiniApp) ⇒ <code>Boolean</code>
+    * [.isApp()](#ZaxDevice+isApp) ⇒ <code>Boolean</code>
+    * [.isMiniApp()](#ZaxDevice+isMiniApp) ⇒ <code>Boolean</code>
 
-<a name="module_zaxDevice..setAppMapping"></a>
+<a name="ZaxDevice+setAppMapping"></a>
 
-### zaxDevice~setAppMapping() ⇒ <code>Record.&lt;string, string&gt;</code>
+### zaxDevice.setAppMapping() ⇒ <code>ZaxDeviceOptions</code>
 <p>setAppMapping</p>
-<pre class="prettyprint source lang-js"><code>setAppMapping('tt','toutiao');
+<pre class="prettyprint source lang-js"><code>setAppMapping('dax','jsonchou');
 //=>
 {
- alipay: 'AliApp',
- wechat: 'MicroMessenger',
- tt: 'ToutiaoMicroApp',
-}
+	alipay: 'AliApp',
+	wechat: 'MicroMessenger',
+	toutiao: 'NewsArticle',
+	douyin: 'Aweme',
+	dax: 'jsonchou'
+     }
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
-**Returns**: <code>Record.&lt;string, string&gt;</code> - <p>result</p>  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
+**Returns**: <code>ZaxDeviceOptions</code> - <p>result</p>  
 **Params**: key { String } short cut of user agent  
 **Params**: regexFlag { String } core part of user agent  
-<a name="module_zaxDevice..getAppMapping"></a>
+<a name="ZaxDevice+setUA"></a>
 
-### zaxDevice~getAppMapping() ⇒ <code>Record.&lt;string, string&gt;</code>
-<p>getAppMapping</p>
-<pre class="prettyprint source lang-js"><code>getAppMapping();
+### zaxDevice.setUA() ⇒ <code>ZaxDeviceOptions</code>
+<p>setUA</p>
+<pre class="prettyprint source lang-js"><code>setUA('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
 //=>
 {
- alipay: 'AliApp',
- wechat: 'MicroMessenger',
- tt: 'ToutiaoMicro',
-}
+    ua: '',
+    appMapping: {
+      alipay: 'AliApp',
+      wechat: 'MicroMessenger',
+      toutiao: 'NewsArticle',
+      douyin: 'Aweme'
+    }
+  }
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
-**Returns**: <code>Record.&lt;string, string&gt;</code> - <p>result</p>  
-<a name="module_zaxDevice..isClientSide"></a>
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
+**Returns**: <code>ZaxDeviceOptions</code> - <p>options</p>  
+**Params**: key { String } short cut of user agent  
+<a name="ZaxDevice+isClientSide"></a>
 
-### zaxDevice~isClientSide() ⇒ <code>Boolean</code>
+### zaxDevice.isClientSide() ⇒ <code>Boolean</code>
 <p>isClientSide</p>
 <pre class="prettyprint source lang-js"><code>isClientSide();
 //=> true
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
-<a name="module_zaxDevice..isServerSide"></a>
+<a name="ZaxDevice+isServerSide"></a>
 
-### zaxDevice~isServerSide() ⇒ <code>Boolean</code>
+### zaxDevice.isServerSide() ⇒ <code>Boolean</code>
 <p>isServerSide</p>
 <pre class="prettyprint source lang-js"><code>isServerSide();
 //=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
-<a name="module_zaxDevice..isIOS"></a>
+<a name="ZaxDevice+isIOS"></a>
 
-### zaxDevice~isIOS() ⇒ <code>Boolean</code>
+### zaxDevice.isIOS() ⇒ <code>Boolean</code>
 <p>isIOS</p>
 <p>not support miniprogram</p>
-<pre class="prettyprint source lang-js"><code>isIOS(ctx.request.headers['user-agent']);//(iPhone; CPU iPhone OS 13_1 like Mac OS X)
+<pre class="prettyprint source lang-js"><code>isIOS();
 //=> true
-isIOS();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isAndroid"></a>
+<a name="ZaxDevice+isAndroid"></a>
 
-### zaxDevice~isAndroid() ⇒ <code>Boolean</code>
+### zaxDevice.isAndroid() ⇒ <code>Boolean</code>
 <p>isAndroid</p>
 <p>not support miniprogram</p>
-<pre class="prettyprint source lang-js"><code>isAndroid(ctx.request.headers['user-agent']);//(Linux; Android 10)
+<pre class="prettyprint source lang-js"><code>isAndroid();
 //=> true
-isAndroid();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isWechat"></a>
+<a name="ZaxDevice+isWechat"></a>
 
-### zaxDevice~isWechat() ⇒ <code>Boolean</code>
+### zaxDevice.isWechat() ⇒ <code>Boolean</code>
 <p>isWechat</p>
-<pre class="prettyprint source lang-js"><code>isWechat(ctx.request.headers['user-agent']);//MicroMessenger
+<pre class="prettyprint source lang-js"><code>isWechat();//MicroMessenger
 //=> true
-isWechat();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isAlipay"></a>
+<a name="ZaxDevice+isAlipay"></a>
 
-### zaxDevice~isAlipay() ⇒ <code>Boolean</code>
+### zaxDevice.isAlipay() ⇒ <code>Boolean</code>
 <p>isAlipay</p>
-<pre class="prettyprint source lang-js"><code>isAlipay(ctx.request.headers['user-agent']);//AlipayClient
+<pre class="prettyprint source lang-js"><code>isAlipay();//AlipayClient
 //=> true
-isAlipay();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isToutiao"></a>
+<a name="ZaxDevice+isToutiao"></a>
 
-### zaxDevice~isToutiao() ⇒ <code>Boolean</code>
+### zaxDevice.isToutiao() ⇒ <code>Boolean</code>
 <p>isToutiao</p>
-<pre class="prettyprint source lang-js"><code>isToutiao(ctx.request.headers['user-agent']);//NewsArticle
+<pre class="prettyprint source lang-js"><code>isToutiao();//NewsArticle
 //=> true
-isToutiao();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isDouyin"></a>
+<a name="ZaxDevice+isDouyin"></a>
 
-### zaxDevice~isDouyin() ⇒ <code>Boolean</code>
+### zaxDevice.isDouyin() ⇒ <code>Boolean</code>
 <p>isDouyin</p>
-<pre class="prettyprint source lang-js"><code>isDouyin(ctx.request.headers['user-agent']);//Aweme
+<pre class="prettyprint source lang-js"><code>isDouyin();//Aweme
 //=> true
-isDouyin();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isWechatMiniApp"></a>
+<a name="ZaxDevice+isWechatMiniApp"></a>
 
-### zaxDevice~isWechatMiniApp() ⇒ <code>Boolean</code>
+### zaxDevice.isWechatMiniApp() ⇒ <code>Boolean</code>
 <p>isWechatMiniApp</p>
-<pre class="prettyprint source lang-js"><code>isWechatMiniApp(ctx.request.headers['user-agent']);//MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram
+<pre class="prettyprint source lang-js"><code>isWechatMiniApp();//MicroMessenger/6.6.1.1220(0x26060135) NetType/4G Language/zh_CN miniProgram
 //=> true
-isWechatMiniApp();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isAlipayMiniApp"></a>
+<a name="ZaxDevice+isAlipayMiniApp"></a>
 
-### zaxDevice~isAlipayMiniApp() ⇒ <code>Boolean</code>
+### zaxDevice.isAlipayMiniApp() ⇒ <code>Boolean</code>
 <p>isAlipayMiniApp</p>
-<pre class="prettyprint source lang-js"><code>isAlipayMiniApp(ctx.request.headers['user-agent']);//AlipayClient/10.1.82.9020
+<pre class="prettyprint source lang-js"><code>isAlipayMiniApp();//AlipayClient/10.1.82.9020
 //=> true
-isAlipayMiniApp();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isBaiduMiniApp"></a>
+<a name="ZaxDevice+isBaiduMiniApp"></a>
 
-### zaxDevice~isBaiduMiniApp() ⇒ <code>Boolean</code>
+### zaxDevice.isBaiduMiniApp() ⇒ <code>Boolean</code>
 <p>isBaiduMiniApp</p>
 <pre class="prettyprint source lang-js"><code>isBaiduMiniApp('');
 //=> true
-isBaiduMiniApp();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isBytedanceMiniApp"></a>
+<a name="ZaxDevice+isBytedanceMiniApp"></a>
 
-### zaxDevice~isBytedanceMiniApp() ⇒ <code>Boolean</code>
+### zaxDevice.isBytedanceMiniApp() ⇒ <code>Boolean</code>
 <p>isBytedanceMiniApp</p>
 <pre class="prettyprint source lang-js"><code>isBytedanceMiniApp('');
 //=> true
-isBytedanceMiniApp();
-//=> false
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isApp"></a>
+<a name="ZaxDevice+isApp"></a>
 
-### zaxDevice~isApp() ⇒ <code>Boolean</code>
+### zaxDevice.isApp() ⇒ <code>Boolean</code>
 <p>isApp</p>
-<pre class="prettyprint source lang-js"><code>{
+<pre class="prettyprint source lang-js"><code>isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
+//=>
+{
  	alipay: 'AliApp',
  	wechat: 'MicroMessenger',
  	tt: 'ToutiaoMicroApp',
 }
-isApp('za','YOUR CUSTOM FLAG');// ZhongAnWebView
-//=> true
-isApp('alipay');
-//=> true
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  
-<a name="module_zaxDevice..isMiniApp"></a>
+<a name="ZaxDevice+isMiniApp"></a>
 
-### zaxDevice~isMiniApp() ⇒ <code>Boolean</code>
+### zaxDevice.isMiniApp() ⇒ <code>Boolean</code>
 <p>isMiniApp</p>
 <pre class="prettyprint source lang-js"><code>isMiniApp('');
 //=> true
-isMiniApp('alipay');
-//=> true
 </code></pre>
 
-**Kind**: inner method of [<code>zaxDevice</code>](#module_zaxDevice)  
+**Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  
 **Returns**: <code>Boolean</code> - <p>result</p>  
 **Params**: ua { String } user agent  

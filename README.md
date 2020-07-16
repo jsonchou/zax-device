@@ -1,4 +1,5 @@
 # Zax Device
+
 ## support SSR & Miniprogram & Browser side
 
 [![NPM version](https://img.shields.io/npm/v/zax-device.svg?style=flat)](https://www.npmjs.com/package/zax-device)
@@ -16,23 +17,42 @@ util module
 
 ## Install
 
-``` base
+```base
 npm i zax-device -S
 ```
 
 ## usage
 
-``` javascript
-let zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping } = require('zax-device')
+```javascript
+import { ZaxDevice } from 'zax-device'
+let device = new ZaxDevice({
+	ua: 'CUSTOM UA OR NULL',
+	appMapping: {
+		dax: 'WEBVIEW_FLAG'
+	}
+})
 
-let zaxDevice, { getAppMapping, setAppMapping, isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniprogram, isAlipayMiniprogram, isBytedanceMiniprogram, isBaiduMiniprogram, webviewMapping } from 'zax-device'
+//dax.options
 
-...
-let foo = isAndroid(ctx.reqeust.header['user-agent'])// in koa middleware way
-...
+device.setAppMapping('dax', 'DAX_REGEX_FLAG') //
+device.setUA(ctx.reqeust.header['user-agent']) // set server ua
+device.isWechat() //
+device.isAlipay() //
+device.isToutiao() //
+device.isDouyin() //
+device.isApp('douyin') // same as isDouyin()
+device.isApp() //
+device.isMiniApp() //
+device.isAndroid() //
+device.isIOS() //
+device.isClientSide() //
+device.isServerSide() //
+device.isWechatMiniApp() //
+device.isAlipayMiniApp() //
+device.isBytedanceMiniApp() //
+device.isBaiduMiniApp() //
 ```
 
 ## [Docs](https://github.com/jsonchou/zax-device/tree/master/docs)
 
 ## [Test Case](https://github.com/jsonchou/zax-device/blob/master/__tests__/index.spec.ts)
-
