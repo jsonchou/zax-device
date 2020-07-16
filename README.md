@@ -24,7 +24,7 @@ npm i zax-device -S
 ## usage
 
 ```javascript
-import { ZaxDevice } from 'zax-device'
+import ZaxDevice from 'zax-device'
 let device = new ZaxDevice({
 	ua: 'CUSTOM UA OR NULL',
 	appMapping: {
