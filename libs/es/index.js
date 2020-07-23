@@ -19,6 +19,13 @@ export default class ZaxDevice {
         if (options) {
             this.options = options;
         }
+        this.isClientSide = this.isClientSide.bind(this);
+        this.isApp = this.isApp.bind(this);
+        this.isMiniApp = this.isMiniApp.bind(this);
+        this.isBaiduMiniApp = this.isBaiduMiniApp.bind(this);
+        this.isBytedanceMiniApp = this.isBytedanceMiniApp.bind(this);
+        this.isWechatMiniApp = this.isWechatMiniApp.bind(this);
+        this.isAlipayMiniApp = this.isAlipayMiniApp.bind(this);
     }
     /**
      * setAppMapping
@@ -50,7 +57,7 @@ export default class ZaxDevice {
      * setUA('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
      * //=>
      * {
-     *     ua: '',
+     *     ua: 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)',
      *     appMapping: {
      *       alipay: 'AliApp',
      *       wechat: 'MicroMessenger',

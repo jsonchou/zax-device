@@ -37,7 +37,7 @@ export default class ZaxDevice {
      * setUA('Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)');
      * //=>
      * {
-     *     ua: '',
+     *     ua: 'Aweme/2.3.1 (iPhone; iOS 11.4.1; Scale/2.00)',
      *     appMapping: {
      *       alipay: 'AliApp',
      *       wechat: 'MicroMessenger',

@@ -23,6 +23,13 @@ export default class ZaxDevice {
 		if (options) {
 			this.options = options
 		}
+		this.isClientSide = this.isClientSide.bind(this)
+		this.isApp = this.isApp.bind(this)
+		this.isMiniApp = this.isMiniApp.bind(this)
+		this.isBaiduMiniApp = this.isBaiduMiniApp.bind(this)
+		this.isBytedanceMiniApp = this.isBytedanceMiniApp.bind(this)
+		this.isWechatMiniApp = this.isWechatMiniApp.bind(this)
+		this.isAlipayMiniApp = this.isAlipayMiniApp.bind(this)
 	}
 
 	/**
