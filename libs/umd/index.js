@@ -42,7 +42,14 @@ var __assign = (this && this.__assign) || function () {
                 this.options = options;
             }
             this.isClientSide = this.isClientSide.bind(this);
+            this.isServerSide = this.isServerSide.bind(this);
             this.isApp = this.isApp.bind(this);
+            this.isIOS = this.isIOS.bind(this);
+            this.isAndroid = this.isAndroid.bind(this);
+            this.isWechat = this.isWechat.bind(this);
+            this.isAlipay = this.isAlipay.bind(this);
+            this.isToutiao = this.isToutiao.bind(this);
+            this.isDouyin = this.isDouyin.bind(this);
             this.isMiniApp = this.isMiniApp.bind(this);
             this.isBaiduMiniApp = this.isBaiduMiniApp.bind(this);
             this.isBytedanceMiniApp = this.isBytedanceMiniApp.bind(this);
@@ -116,7 +123,7 @@ var __assign = (this && this.__assign) || function () {
                 this.ua = opt.ua || '';
                 this.appMapping = __assign(__assign({}, this.appMapping), options.appMapping);
             },
-            enumerable: false,
+            enumerable: true,
             configurable: true
         });
         /**
