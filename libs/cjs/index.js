@@ -114,7 +114,7 @@ var ZaxDevice = /** @class */ (function () {
             this.ua = opt.ua || '';
             this.appMapping = __assign(__assign({}, this.appMapping), options.appMapping);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**

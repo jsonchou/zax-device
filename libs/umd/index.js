@@ -123,7 +123,7 @@ var __assign = (this && this.__assign) || function () {
                 this.ua = opt.ua || '';
                 this.appMapping = __assign(__assign({}, this.appMapping), options.appMapping);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         /**
