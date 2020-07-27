@@ -19,6 +19,8 @@ export default class ZaxDevice {
         if (options) {
             this.options = options;
         }
+        this.setUA = this.setUA.bind(this);
+        this.setAppMapping = this.setAppMapping.bind(this);
         this.isClientSide = this.isClientSide.bind(this);
         this.isServerSide = this.isServerSide.bind(this);
         this.isApp = this.isApp.bind(this);
