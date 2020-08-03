@@ -29,7 +29,7 @@ var ZaxDevice = /** @class */ (function () {
             wechat: 'MicroMessenger',
             toutiao: 'NewsArticle',
             douyin: 'Aweme',
-            za: 'ZhonganWebview'
+            za: 'ZhongAnWebView'
         };
         if (options) {
             this.options = options;

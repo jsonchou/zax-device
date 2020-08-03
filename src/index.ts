@@ -18,7 +18,7 @@ export default class ZaxDevice {
 		wechat: 'MicroMessenger',
 		toutiao: 'NewsArticle',
 		douyin: 'Aweme',
-		za: 'ZhonganWebview'
+		za: 'ZhongAnWebView'
 	}
 	constructor(options?: ZaxDeviceOptions) {
 		if (options) {

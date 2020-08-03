@@ -38,7 +38,7 @@ var __assign = (this && this.__assign) || function () {
                 wechat: 'MicroMessenger',
                 toutiao: 'NewsArticle',
                 douyin: 'Aweme',
-                za: 'ZhonganWebview'
+                za: 'ZhongAnWebView'
             };
             if (options) {
                 this.options = options;
