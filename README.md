@@ -32,6 +32,8 @@ let device = new ZaxDevice({
 	}
 })
 
+// or
+import { device } from 'zax-device'
 //dax.options
 
 device.setAppMapping('dax', 'DAX_REGEX_FLAG') //
