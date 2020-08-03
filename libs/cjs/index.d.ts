@@ -216,6 +216,7 @@ export default class ZaxDevice {
      */
     isMiniApp(): boolean;
 }
+export declare const device: ZaxDevice;
 export declare type ZaxDeviceOptions = {
     ua?: string;
     appMapping?: Record<string, string>;

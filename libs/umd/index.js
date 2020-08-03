@@ -20,6 +20,7 @@ var __assign = (this && this.__assign) || function () {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    exports.device = void 0;
     /**
      * Device module.
      * @description support browser & server side.
@@ -36,7 +37,8 @@ var __assign = (this && this.__assign) || function () {
                 alipay: 'AliApp',
                 wechat: 'MicroMessenger',
                 toutiao: 'NewsArticle',
-                douyin: 'Aweme'
+                douyin: 'Aweme',
+                za: 'ZhonganWebview'
             };
             if (options) {
                 this.options = options;
@@ -357,6 +359,7 @@ var __assign = (this && this.__assign) || function () {
         return ZaxDevice;
     }());
     exports.default = ZaxDevice;
+    exports.device = new ZaxDevice();
     function isUndef(tp) {
         return tp === 'undefined';
     }

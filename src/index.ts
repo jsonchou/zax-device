@@ -17,7 +17,8 @@ export default class ZaxDevice {
 		alipay: 'AliApp',
 		wechat: 'MicroMessenger',
 		toutiao: 'NewsArticle',
-		douyin: 'Aweme'
+		douyin: 'Aweme',
+		za: 'ZhonganWebview'
 	}
 	constructor(options?: ZaxDeviceOptions) {
 		if (options) {
@@ -350,6 +351,8 @@ export default class ZaxDevice {
 	}
 
 }
+
+export const device = new ZaxDevice()
 
 
 export type ZaxDeviceOptions = { ua?: string, appMapping?: Record<string, string> }

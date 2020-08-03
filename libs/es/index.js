@@ -14,7 +14,8 @@ export default class ZaxDevice {
             alipay: 'AliApp',
             wechat: 'MicroMessenger',
             toutiao: 'NewsArticle',
-            douyin: 'Aweme'
+            douyin: 'Aweme',
+            za: 'ZhonganWebview'
         };
         if (options) {
             this.options = options;
@@ -328,6 +329,7 @@ export default class ZaxDevice {
         return this.isWechatMiniApp() || this.isAlipayMiniApp() || this.isBytedanceMiniApp() || this.isBaiduMiniApp();
     }
 }
+export const device = new ZaxDevice();
 function isUndef(tp) {
     return tp === 'undefined';
 }

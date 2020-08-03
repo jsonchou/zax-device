@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.device = void 0;
 /**
  * Device module.
  * @description support browser & server side.
@@ -27,7 +28,8 @@ var ZaxDevice = /** @class */ (function () {
             alipay: 'AliApp',
             wechat: 'MicroMessenger',
             toutiao: 'NewsArticle',
-            douyin: 'Aweme'
+            douyin: 'Aweme',
+            za: 'ZhonganWebview'
         };
         if (options) {
             this.options = options;
@@ -348,6 +350,7 @@ var ZaxDevice = /** @class */ (function () {
     return ZaxDevice;
 }());
 exports.default = ZaxDevice;
+exports.device = new ZaxDevice();
 function isUndef(tp) {
     return tp === 'undefined';
 }

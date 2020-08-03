@@ -41,7 +41,7 @@ device.isAlipay() //
 device.isToutiao() //
 device.isDouyin() //
 device.isApp('douyin') // same as isDouyin()
-device.isApp() //
+device.isApp(') //
 device.isMiniApp() //
 device.isAndroid() //
 device.isIOS() //
