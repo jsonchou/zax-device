@@ -41,7 +41,7 @@
 	toutiao: 'NewsArticle',
 	douyin: 'Aweme',
 	dax: 'jsonchou'
-     }
+  }
 </code></pre>
 
 **Kind**: instance method of [<code>ZaxDevice</code>](#ZaxDevice)  

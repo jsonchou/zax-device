@@ -11,6 +11,12 @@ type Nothing = {} // jsdoc2md bugs, do not remove this line
  * @see https://github.com/faisalman/ua-parser-js
  * @see https://demo.mobiledetect.net/
  */
+
+function isUndef(tp: any): boolean {
+	return tp === 'undefined'
+}
+
+export type ZaxDeviceOptions = { ua?: string, appMapping?: Record<string, string> }
 export default class ZaxDevice {
 	ua: string = ''
 	appMapping: Record<string, string> = {
@@ -24,6 +30,7 @@ export default class ZaxDevice {
 		if (options) {
 			this.options = options
 		}
+
 		this.setUA = this.setUA.bind(this)
 		this.setAppMapping = this.setAppMapping.bind(this)
 		this.isClientSide = this.isClientSide.bind(this)
@@ -54,7 +61,7 @@ export default class ZaxDevice {
 	 * 	toutiao: 'NewsArticle',
 	 * 	douyin: 'Aweme',
 	 * 	dax: 'jsonchou'
-    }
+	}
 	 * ```
 	 * @params key { String } short cut of user agent
 	 * @params regexFlag { String } core part of user agent
@@ -103,7 +110,7 @@ export default class ZaxDevice {
 		/* istanbul ignore next */
 		if (!opt.ua) {
 			if (this.isClientSide()) {
-				opt.ua = navigator.userAgent
+				opt.ua = window.navigator.userAgent
 			}
 		}
 		/* istanbul ignore next */
@@ -152,8 +159,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isIOS(): boolean {
-		return /iPad|iPhone|iPod/i.test(this.ua)
+	isIOS(ua?: string): boolean {
+		return /iPad|iPhone|iPod/i.test(ua || this.ua)
 	}
 
 	/**
@@ -168,8 +175,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isAndroid(): boolean {
-		return /android/i.test(this.ua)
+	isAndroid(ua?: string): boolean {
+		return /android/i.test(ua || this.ua)
 	}
 
 	/**
@@ -182,8 +189,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isWechat(): boolean {
-		return this.isApp('wechat')
+	isWechat(ua?: string): boolean {
+		return this.isApp('wechat', ua)
 	}
 
 	/**
@@ -196,8 +203,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isAlipay(): boolean {
-		return this.isApp('alipay')
+	isAlipay(ua?: string): boolean {
+		return this.isApp('alipay', ua)
 	}
 
 	/**
@@ -210,8 +217,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isToutiao(): boolean {
-		return this.isApp('toutiao')
+	isToutiao(ua?: string): boolean {
+		return this.isApp('toutiao', ua)
 	}
 
 	/**
@@ -224,8 +231,8 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isDouyin(): boolean {
-		return this.isApp('douyin')
+	isDouyin(ua?: string): boolean {
+		return this.isApp('douyin', ua)
 	}
 
 	/**
@@ -238,9 +245,10 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isWechatMiniApp(): boolean {
-		if (this.ua) {
-			return /MicroMessenger/i.test(this.ua) && /miniProgram/i.test(this.ua)
+	isWechatMiniApp(ua?: string): boolean {
+		ua = ua || this.ua
+		if (ua) {
+			return /MicroMessenger/i.test(ua as string) && /miniProgram/i.test(ua as string)
 		}
 		/* istanbul ignore next */
 		return !isUndef(typeof wx) && wx !== null && (!isUndef(wx.login) || !isUndef(wx.miniProgram))
@@ -256,9 +264,10 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isAlipayMiniApp(): boolean {
-		if (this.ua) {
-			return /AlipayClient/i.test(this.ua)
+	isAlipayMiniApp(ua?: string): boolean {
+		ua = ua || this.ua
+		if (ua) {
+			return /AlipayClient/i.test(ua as string)
 		}
 		/* istanbul ignore next */
 		return !isUndef(typeof my) && my !== null && !isUndef(my.alert)
@@ -274,9 +283,10 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isBaiduMiniApp(): boolean {
-		if (this.ua) {
-			return /swan/i.test(this.ua)
+	isBaiduMiniApp(ua?: string): boolean {
+		ua = ua || this.ua
+		if (ua) {
+			return /swan/i.test(ua as string)
 		}
 		/* istanbul ignore next */
 		return !isUndef(typeof swan) && swan !== null
@@ -292,9 +302,10 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isBytedanceMiniApp(): boolean {
-		if (this.ua) {
-			return /ToutiaoMicroApp/i.test(this.ua)
+	isBytedanceMiniApp(ua?: string): boolean {
+		ua = ua || this.ua
+		if (ua) {
+			return /ToutiaoMicroApp/i.test(ua as string)
 		}
 		/* istanbul ignore next */
 		return !isUndef(typeof tt) && tt !== null
@@ -315,20 +326,21 @@ export default class ZaxDevice {
 	 * @params ua { String } user agent
 	 * @returns { Boolean } result
 	 */
-	isApp(appFlag?: string): boolean {
-		if (this.ua) {
+	isApp(appFlag?: string, ua?: string): boolean {
+		ua = ua || this.ua
+		if (ua) {
 			if (appFlag) {
 				let rex = this.appMapping && this.appMapping[appFlag]
 				/* istanbul ignore next */
 				if (!rex) {
 					return false
 				}
-				return new RegExp(rex, 'i').test(this.ua)
+				return new RegExp(rex, 'i').test(ua as string)
 			} else {
 				// match all of appMapping list
 				let obj = Object.keys(this.appMapping).find(item => {
 					let rex = this.appMapping[item]
-					return new RegExp(rex, 'i').test(this.ua)
+					return new RegExp(rex, 'i').test(ua as string)
 				})
 				return !!obj
 			}
@@ -353,10 +365,17 @@ export default class ZaxDevice {
 }
 
 export const device = new ZaxDevice()
-
-
-export type ZaxDeviceOptions = { ua?: string, appMapping?: Record<string, string> }
-
-function isUndef(tp: any): boolean {
-	return tp === 'undefined'
-}
+export const isClientSide = device.isClientSide;
+export const isServerSide = device.isServerSide;
+export const isApp = device.isApp;
+export const isIOS = device.isIOS;
+export const isAndroid = device.isAndroid;
+export const isWechat = device.isWechat;
+export const isAlipay = device.isAlipay;
+export const isToutiao = device.isToutiao;
+export const isDouyin = device.isDouyin;
+export const isMiniApp = device.isMiniApp;
+export const isBaiduMiniApp = device.isBaiduMiniApp;
+export const isBytedanceMiniApp = device.isBytedanceMiniApp;
+export const isWechatMiniApp = device.isWechatMiniApp;
+export const isAlipayMiniApp = device.isAlipayMiniApp;

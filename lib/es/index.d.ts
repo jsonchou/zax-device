@@ -1,12 +1,7 @@
-/**
- * Device module.
- * @description support browser & server side.
- * @module zaxDevice
- * @namespace ZaxDevice
- * @see https://github.com/jsonchou/zax-device/tree/master/docs
- * @see https://github.com/faisalman/ua-parser-js
- * @see https://demo.mobiledetect.net/
- */
+export declare type ZaxDeviceOptions = {
+    ua?: string;
+    appMapping?: Record<string, string>;
+};
 export default class ZaxDevice {
     ua: string;
     appMapping: Record<string, string>;
@@ -86,7 +81,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isIOS(): boolean;
+    isIOS(ua?: string): boolean;
     /**
      * isAndroid
      *
@@ -99,7 +94,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isAndroid(): boolean;
+    isAndroid(ua?: string): boolean;
     /**
      * isWechat
      *
@@ -110,7 +105,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isWechat(): boolean;
+    isWechat(ua?: string): boolean;
     /**
      * isAlipay
      *
@@ -121,7 +116,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isAlipay(): boolean;
+    isAlipay(ua?: string): boolean;
     /**
      * isToutiao
      *
@@ -132,7 +127,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isToutiao(): boolean;
+    isToutiao(ua?: string): boolean;
     /**
      * isDouyin
      *
@@ -143,7 +138,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isDouyin(): boolean;
+    isDouyin(ua?: string): boolean;
     /**
      * isWechatMiniApp
      *
@@ -154,7 +149,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isWechatMiniApp(): boolean;
+    isWechatMiniApp(ua?: string): boolean;
     /**
      * isAlipayMiniApp
      *
@@ -165,7 +160,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isAlipayMiniApp(): boolean;
+    isAlipayMiniApp(ua?: string): boolean;
     /**
      * isBaiduMiniApp
      *
@@ -176,7 +171,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isBaiduMiniApp(): boolean;
+    isBaiduMiniApp(ua?: string): boolean;
     /**
      * isBytedanceMiniApp
      *
@@ -187,7 +182,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isBytedanceMiniApp(): boolean;
+    isBytedanceMiniApp(ua?: string): boolean;
     /**
      * isApp
      *
@@ -203,7 +198,7 @@ export default class ZaxDevice {
      * @params ua { String } user agent
      * @returns { Boolean } result
      */
-    isApp(appFlag?: string): boolean;
+    isApp(appFlag?: string, ua?: string): boolean;
     /**
      * isMiniApp
      *
@@ -217,7 +212,17 @@ export default class ZaxDevice {
     isMiniApp(): boolean;
 }
 export declare const device: ZaxDevice;
-export declare type ZaxDeviceOptions = {
-    ua?: string;
-    appMapping?: Record<string, string>;
-};
+export declare const isClientSide: () => boolean;
+export declare const isServerSide: () => boolean;
+export declare const isApp: (appFlag?: string | undefined, ua?: string | undefined) => boolean;
+export declare const isIOS: (ua?: string | undefined) => boolean;
+export declare const isAndroid: (ua?: string | undefined) => boolean;
+export declare const isWechat: (ua?: string | undefined) => boolean;
+export declare const isAlipay: (ua?: string | undefined) => boolean;
+export declare const isToutiao: (ua?: string | undefined) => boolean;
+export declare const isDouyin: (ua?: string | undefined) => boolean;
+export declare const isMiniApp: () => boolean;
+export declare const isBaiduMiniApp: (ua?: string | undefined) => boolean;
+export declare const isBytedanceMiniApp: (ua?: string | undefined) => boolean;
+export declare const isWechatMiniApp: (ua?: string | undefined) => boolean;
+export declare const isAlipayMiniApp: (ua?: string | undefined) => boolean;

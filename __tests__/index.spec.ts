@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import { log } from '../src/_utils/index'
-import ZaxDevice, { ZaxDeviceOptions } from '../src/index'
+import ZaxDevice, { ZaxDeviceOptions, device, } from '../src/index'
 
 const html = fs.readFileSync(path.resolve(__dirname, '../__mocks__', 'index.html'), 'utf8')
 
@@ -15,7 +15,7 @@ let waitObj = {
 const uaList = require('../__mocks__/ua-list')
 
 let zaxDevice = new ZaxDevice({
-	ua: uaList.fix,
+	ua: uaList.def,
 	appMapping: {
 
 	}
@@ -26,7 +26,7 @@ const { setAppMapping, setUA, isWechat, isAlipay, isToutiao, isDouyin, isApp, is
 describe('zaxDevice', () => {
 	beforeEach(() => {
 		//set default client environment
-		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.fix, configurable: true, writable: true })
+		Object.defineProperty(window.navigator, 'userAgent', { value: uaList.def, configurable: true, writable: true })
 		Object.defineProperty(window, 'document', { value: window.document, configurable: true, writable: true })
 		Object.defineProperty(window, 'onload', { value: console.log, configurable: true, writable: true })
 	})
