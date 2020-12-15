@@ -1,6 +1,6 @@
 {
   "name": "zax-device",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "zax-device",
   "main": "./lib/cjs",
   "sideEffects": false,
