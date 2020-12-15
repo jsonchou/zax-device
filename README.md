@@ -32,28 +32,29 @@ let device = new ZaxDevice({
 	}
 })
 
+// client side
 // or
 import { device } from 'zax-device'
-//dax.options
 
-// client side
 device.setAppMapping('dax', 'DAX_REGEX_FLAG') //
 device.setUA(ctx.reqeust.header['user-agent']) // set server ua
-device.isWechat() //
-device.isAlipay() //
-device.isToutiao() //
-device.isDouyin() //
-device.isApp('douyin') // same as isDouyin()
-device.isApp(') //
-device.isMiniApp() //
-device.isAndroid() //
-device.isIOS() //
-device.isClientSide() //
-device.isServerSide() //
-device.isWechatMiniApp() //
-device.isAlipayMiniApp() //
-device.isBytedanceMiniApp() //
-device.isBaiduMiniApp() //
+
+isWechat() //
+isWechat() //
+isAlipay() //
+isToutiao() //
+isDouyin() //
+isApp() //
+isApp('douyin') // same as isDouyin()
+isMiniApp() //
+isAndroid() //
+isIOS() //
+isClientSide() //
+isServerSide() //
+isWechatMiniApp() //
+isAlipayMiniApp() //
+isBytedanceMiniApp() //
+isBaiduMiniApp() //
 
 //server side
 isIOS(ctx.reqeust.header['user-agent'])
