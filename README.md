@@ -36,6 +36,7 @@ let device = new ZaxDevice({
 import { device } from 'zax-device'
 //dax.options
 
+// client side
 device.setAppMapping('dax', 'DAX_REGEX_FLAG') //
 device.setUA(ctx.reqeust.header['user-agent']) // set server ua
 device.isWechat() //
@@ -53,6 +54,9 @@ device.isWechatMiniApp() //
 device.isAlipayMiniApp() //
 device.isBytedanceMiniApp() //
 device.isBaiduMiniApp() //
+
+//server side
+isIOS(ctx.reqeust.header['user-agent'])
 ```
 
 ## [Docs](https://github.com/jsonchou/zax-device/tree/master/docs)
