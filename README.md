@@ -24,7 +24,7 @@ npm i zax-device -S
 ## usage
 
 ```javascript
-import ZaxDevice from 'zax-device'
+import ZaxDevice,{ isWechat, isAlipay, isToutiao, isDouyin, isApp, isMiniApp, isAndroid, isIOS, isClientSide, isServerSide, isWechatMiniApp, isAlipayMiniApp, isBytedanceMiniApp, isBaiduMiniApp } from 'zax-device'
 let device = new ZaxDevice({
 	ua: 'CUSTOM UA OR NULL',
 	appMapping: {
