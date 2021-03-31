@@ -4721,8 +4721,8 @@ xmlcreate@^2.0.3:
   resolved "https://npm.zhonganinfo.com/xmlcreate/-/xmlcreate-2.0.3.tgz#df9ecd518fd3890ab3548e1b811d040614993497"
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://npm.zhonganinfo.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.1.tgz#8db2b83c31c5d75099bb890b23f3094891e247d4"
 
 yargs-parser@18.x, yargs-parser@^18.1.1:
   version "18.1.3"
